@@ -9,6 +9,7 @@
     <CheckBox
         android:id="@+id/chbxDone"
         android:layout_width="15dp"
+        android:layout_gravity="center"
         android:layout_height="35dp"
         android:scaleX="1"
         android:scaleY="1"
@@ -39,8 +40,15 @@
 
     </LinearLayout>
     <CheckBox
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:id="@+id/chbxImp"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:background="@drawable/chbox_imp"
+        android:button="@null"
+        android:layout_width="15dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="20dp"
+        android:scaleX="1"
+        android:backgroundTint="#5C5D5E"
+        android:scaleY="1" />
 </LinearLayout>
