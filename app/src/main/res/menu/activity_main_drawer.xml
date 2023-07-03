@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_myDay"
+            android:icon="@drawable/ic_sun"
+            android:title="@string/menu_myDay" />
+        <item
+            android:id="@+id/nav_important"
+            android:icon="@drawable/ic_impo"
+            android:title="@string/menu_important" />
+
+        <item
+            android:id="@+id/nav_planned"
+            android:icon="@drawable/ic_calendar"
+            android:title="@string/menu_planned" />
+        <item
+            android:id="@+id/nav_assigned"
+            android:icon="@drawable/ic_user"
+            android:title="@string/menu_assigned" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_tasks" />
+    </group>
+</menu>
