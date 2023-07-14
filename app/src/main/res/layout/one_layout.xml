@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:background="@drawable/one_activity_box"
     android:weightSum="5"
+    android:layout_marginTop="10dp"
     >
     <CheckBox
         android:id="@+id/chbxDone"
@@ -27,12 +28,14 @@
         android:layout_weight="3"
         >
         <TextView
+            android:id="@+id/txtActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Activity"
             android:textSize="25dp"
             android:textStyle="bold"/>
         <TextView
+            android:id="@+id/txtRemindTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="15dp"
@@ -40,6 +43,7 @@
 
     </LinearLayout>
     <CheckBox
+
         android:layout_gravity="center"
         android:layout_weight="1"
         android:id="@+id/chbxImp"

@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.example.test.adapter.RcVwAdapter;
+import com.example.test.model.TaskModel;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -13,13 +14,22 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView recyView;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private List<TaskModel> taskList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +38,23 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //Recycle view
+        recyView = findViewById(R.id.recycleView);
+
+        //Action bar
         setSupportActionBar(binding.appBarMain.toolbar);
+
+        //
+        taskList.add(new TaskModel("Homework"));
+        RcVwAdapter adapter = new RcVwAdapter(taskList);
+        recyView.setAdapter(adapter);
+        recyView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Them hoat dong", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
         DrawerLayout drawer = binding.drawerLayout;
@@ -50,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -64,4 +84,5 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
 }

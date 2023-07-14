@@ -19,14 +19,18 @@ public class MyDayFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyDayViewModel galleryViewModel =
+        MyDayViewModel myDayViewModel =
                 new ViewModelProvider(this).get(MyDayViewModel.class);
 
         binding = FragmentMydayBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textHome;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textGreat;
+        myDayViewModel.getTxtGrate().observe(getViewLifecycleOwner(),textView::setText);
+
+        final TextView textView1 = binding.txtTime;
+        myDayViewModel.getTxtTime().observe(getViewLifecycleOwner(),textView1::setText);
+
         return root;
     }
 
