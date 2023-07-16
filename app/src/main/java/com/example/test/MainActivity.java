@@ -38,11 +38,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     EditText edtTask;
     Button btnSave;
-    RecyclerView recyView;
     BottomSheetDialog dialog;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    private List<TaskModel> taskList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +49,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-
-        //Recycle view
-        recyView = findViewById(R.id.recycleView);
-
         //Action bar
         setSupportActionBar(binding.appBarMain.toolbar);
-
-        //
-        taskList.add(new TaskModel("Homework"));
-        RcVwAdapter adapter = new RcVwAdapter(taskList);
-        recyView.setAdapter(adapter);
-        recyView.setLayoutManager(new LinearLayoutManager(this));
 
         dialog = new BottomSheetDialog(this);
         createDialog();

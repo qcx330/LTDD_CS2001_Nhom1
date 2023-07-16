@@ -6,5 +6,4 @@
     <item android:drawable="@drawable/ic_checkbox_checked"
         android:state_checked="true"
         android:scaleType="fitXY"/>
-    <item android:drawable="@drawable/ic_checkbox"/>
 </selector>

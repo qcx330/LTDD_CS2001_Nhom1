@@ -1,11 +1,13 @@
 package com.example.test.adapter;
 
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,7 +44,19 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(holder.chbxDone.isChecked())
+                {
+                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
+                    item.setDone(1);
+                    item.setImpo(1);
+                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)), Toast.LENGTH_LONG).show();
+                }
+                else {
+                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    item.setDone(0);
+                    item.setImpo(0);
+                }
             }
         });
         holder.chbxImp.setChecked(toBoolean(item.getImpo()));

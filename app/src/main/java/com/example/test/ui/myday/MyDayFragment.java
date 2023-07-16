@@ -9,15 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.test.adapter.RcVwAdapter;
 import com.example.test.databinding.FragmentMydayBinding;
 
 
 public class MyDayFragment extends Fragment {
 
     private FragmentMydayBinding binding;
-
+    private RecyclerView recyView;
+    private RecyclerView recyView1;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MyDayViewModel myDayViewModel =
@@ -32,8 +35,13 @@ public class MyDayFragment extends Fragment {
         final TextView textView1 = binding.txtTime;
         myDayViewModel.getTxtTime().observe(getViewLifecycleOwner(),textView1::setText);
 
-        final RecyclerView recyView = binding.recycleView;
+        recyView = binding.recycleView;
+        recyView.setAdapter(myDayViewModel.getAdapter());
+        recyView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        recyView1 = binding.recycleViewFalse;
+        recyView1.setAdapter(myDayViewModel.getAdapter());
+        recyView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return root;
     }
