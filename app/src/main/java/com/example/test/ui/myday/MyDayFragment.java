@@ -21,6 +21,8 @@ public class MyDayFragment extends Fragment {
     private FragmentMydayBinding binding;
     private RecyclerView recyView;
     private RecyclerView recyView1;
+    private RcVwAdapter adapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         MyDayViewModel myDayViewModel =
@@ -40,7 +42,7 @@ public class MyDayFragment extends Fragment {
         recyView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         recyView1 = binding.recycleViewFalse;
-        recyView1.setAdapter(myDayViewModel.getAdapter());
+        recyView1.setAdapter(myDayViewModel.getAdapter1());
         recyView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return root;
