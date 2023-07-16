@@ -2,8 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/dialog_bg"
+    android:paddingTop="40dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="20dp">
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -25,8 +31,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="3"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginTop="20dp">
         <Button
             android:layout_width="match_parent"
@@ -34,9 +38,8 @@
             android:text="Set due day"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
-            android:textSize="13dp"
+            android:textSize="12dp"
             android:background="@drawable/one_activity_box"
-            android:textColor="@color/black"
             ></Button>
         <Button
             android:layout_width="match_parent"
@@ -44,16 +47,14 @@
             android:text="Remind me"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
-            android:textSize="13dp"
-            android:background="@drawable/one_activity_box"
-            android:textColor="@color/black"></Button>
+            android:textSize="12dp"
+            android:background="@drawable/one_activity_box"></Button>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Repeat"
             android:layout_weight="1"
-            android:textSize="13dp"
-            android:background="@drawable/one_activity_box"
-            android:textColor="@color/black"></Button>
+            android:textSize="12dp"
+            android:background="@drawable/one_activity_box"></Button>
     </LinearLayout>
 </LinearLayout>

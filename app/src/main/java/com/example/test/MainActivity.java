@@ -1,11 +1,22 @@
 package com.example.test;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.test.adapter.RcVwAdapter;
 import com.example.test.model.TaskModel;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -25,8 +36,10 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    EditText edtTask;
+    Button btnSave;
     RecyclerView recyView;
+    BottomSheetDialog dialog;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private List<TaskModel> taskList = new ArrayList<>();
@@ -37,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
         //Recycle view
         recyView = findViewById(R.id.recycleView);
@@ -50,13 +65,18 @@ public class MainActivity extends AppCompatActivity {
         recyView.setAdapter(adapter);
         recyView.setLayoutManager(new LinearLayoutManager(this));
 
+        dialog = new BottomSheetDialog(this);
+        createDialog();
+
         //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog.show();
             }
         });
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -71,6 +91,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
+
+    private void createDialog() {
+        View view = getLayoutInflater().inflate(R.layout.add_new_task, null, false);
+
+        dialog.setContentView(view);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        //dialog.getWindow().getAttributes().windowAnimations =R.style.DialogAnimation;
+        btnSave = dialog.findViewById(R.id.btnSave);
+        edtTask = dialog.findViewById(R.id.edtTask);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (edtTask.getText().toString().equals(""))
+                    Toast.makeText(MainActivity.this, "Nhap task", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(MainActivity.this, edtTask.getText().toString(), Toast.LENGTH_SHORT).show();
+                    edtTask.setText("");
+                }
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

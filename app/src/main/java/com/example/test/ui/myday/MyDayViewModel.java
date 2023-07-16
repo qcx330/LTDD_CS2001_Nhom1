@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.test.model.TaskModel;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +22,7 @@ public class MyDayViewModel extends ViewModel {
 
     private final MutableLiveData<String> txtTime;
 
+
     public MyDayViewModel() {
 
         txtGreat = new MutableLiveData<>();
@@ -27,6 +30,7 @@ public class MyDayViewModel extends ViewModel {
 
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
+
     }
     public String getDate(){
         SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM dd, yyyy");

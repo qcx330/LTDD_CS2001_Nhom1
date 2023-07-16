@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.databinding.FragmentMydayBinding;
 
@@ -30,6 +31,9 @@ public class MyDayFragment extends Fragment {
 
         final TextView textView1 = binding.txtTime;
         myDayViewModel.getTxtTime().observe(getViewLifecycleOwner(),textView1::setText);
+
+        final RecyclerView recyView = binding.recycleView;
+
 
         return root;
     }
