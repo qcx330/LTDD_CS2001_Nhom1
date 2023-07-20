@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.databinding.ActivityMainBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         dialog = new BottomSheetDialog(this);
         createDialog();
 
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("/mm");
+
+        myRef.setValue("Hello, World!");
+
         //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_myDay,R.id.nav_planned, R.id.nav_important,
+                R.id.nav_myDay, R.id.nav_planned, R.id.nav_important,
                 R.id.nav_assigned, R.id.nav_tasks
         )
                 .setOpenableLayout(drawer)

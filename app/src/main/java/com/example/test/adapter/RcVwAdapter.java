@@ -21,8 +21,15 @@ import java.util.List;
 
 public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
 
-    private List<TaskModel> taskList = new ArrayList<>();
-    private TaskModel tmp;
+    private List<TaskModel> taskList;
+
+    public void setTaskList(TaskModel taskList){
+        this.taskList.add(taskList);
+    }
+
+    public List<TaskModel> getTaskList(){
+        return this.taskList;
+    }
 
     public RcVwAdapter(List<TaskModel> taskList){
         this.taskList = taskList;

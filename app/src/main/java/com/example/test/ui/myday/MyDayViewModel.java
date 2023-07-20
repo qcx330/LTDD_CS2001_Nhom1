@@ -25,12 +25,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import kotlin.reflect.KVisibility;
 
 public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
-    private RcVwAdapter adapter, adapter1;
+    private RcVwAdapter adapter;
     private static List<TaskModel> taskModelList;
     private static List<TaskModel> taskModelListTrue;
 
@@ -42,12 +43,10 @@ public class MyDayViewModel extends ViewModel {
     {
         taskModelListTrue = new ArrayList<>();
         taskModelList = new ArrayList<>();
-
         adapter = new RcVwAdapter(this.addTaskModelList());
     }
 
     public MyDayViewModel() {
-
         txtGreat = new MutableLiveData<>();
         txtGreat.setValue("Good "+ getTime());
         txtTime = new MutableLiveData<>();
@@ -76,23 +75,21 @@ public class MyDayViewModel extends ViewModel {
 
     public RcVwAdapter getAdapter(){
         return adapter;
-    }
 
-    public RcVwAdapter getAdapter1(){
-        adapter1 = new RcVwAdapter(this.addTaskModelListTrue());
-        return adapter1;
-    }
 
-    public List<TaskModel> addTaskModelListTrue(){
-        for(int i = 0; i < taskModelList.size(); i++)
-        {
-            if(taskModelList.get(i).getDone() == 1)
-            {
-                taskModelListTrue.add(taskModelList.get(i));
-                taskModelList.remove(taskModelList.get(i));
-            }
-        }
-        return taskModelListTrue;
+//    public List<TaskModel> addTaskModelListTrue(){
+////        for(int i = 0; i < adapter1.getRcVwAdapter().size(); i++)
+////        {
+////            if(adapter1.getRcVwAdapter().get(i).getDone() == 1)
+////            {
+////                taskModelListTrue.add(taskModelList.get(i));
+//////                adapter.getRcVwAdapter().remove(adapter.getRcVwAdapter().get(i));
+////            }
+////        }
+//        if(getAdapter1().getTaskList().isEmpty())
+//            getAdapter1().setTaskList(new TaskModel("Home Work A"));
+//        taskModelListTrue = getAdapter1().getTaskList();
+//        return taskModelListTrue;
     }
 
     public List<TaskModel> addTaskModelList(){
