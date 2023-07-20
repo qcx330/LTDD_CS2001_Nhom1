@@ -1,21 +1,15 @@
 package com.example.test;
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
-import android.view.ViewGroup;
-import android.view.Window;
+
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.test.adapter.RcVwAdapter;
-import com.example.test.model.TaskModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 

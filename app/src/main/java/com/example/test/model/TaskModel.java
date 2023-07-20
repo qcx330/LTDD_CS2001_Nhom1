@@ -1,11 +1,29 @@
 package com.example.test.model;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class TaskModel {
     private String task;
-//    private int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
+    public HashMap<String, Object> convertHashMap(){
+        HashMap<String,Object> hashmap = new HashMap<>();
+        hashmap.put("id",id);
+        hashmap.put("task", task);
+        hashmap.put("impo",impo);
+        hashmap.put("done", done);
+        return hashmap;
+    }
     public int getDone() {
         return done;
     }
