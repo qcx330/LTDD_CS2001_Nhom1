@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.test.adapter.RcVwAdapter;
 //import com.example.test.controller.task.TaskController;
+import com.example.test.controller.task.TaskController;
 import com.example.test.model.TaskModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     BottomSheetDialog dialog;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    TaskController taskController = new TaskController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("/mm");
 
         myRef.setValue("Hello, World!");
-
-//        TaskController taskController = new TaskController();
-//        taskController.CreateTask("Ay");
 
         //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 if (edtTask.getText().toString().equals(""))
                     Toast.makeText(MainActivity.this, "Nhap task", Toast.LENGTH_SHORT).show();
                 else {
+                    taskController.CreateTask(edtTask.getText().toString());
                     Toast.makeText(MainActivity.this, edtTask.getText().toString(), Toast.LENGTH_SHORT).show();
                     edtTask.setText("");
                 }

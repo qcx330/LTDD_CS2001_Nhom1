@@ -7,11 +7,20 @@ public class TaskModel {
     private String task;
     private int done;
     private int impo;
-    private int id;
+    private static int id =1;
+    {
+        id++;
+    }
+
+    public TaskModel() {
+    }
 
     public HashMap<String, Object> ConvertHashMap(){
         HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", id);
         hashMap.put("task", task);
+        hashMap.put("impo", impo);
+        hashMap.put("done", done);
         return hashMap;
     }
 
@@ -40,7 +49,6 @@ public class TaskModel {
         setTask(task);
         setImpo(0);
         setDone(0);
-        setId(1);
     }
     public String getTask() {
         return task;
