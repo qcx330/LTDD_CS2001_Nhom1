@@ -39,7 +39,7 @@ public class MyDayFragment extends Fragment {
 
         recyView = binding.recycleView;
         recyView.setAdapter(myDayViewModel.getAdapter());
-        recyView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyView1.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return root;
     }

@@ -59,7 +59,9 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
                     item.setImpo(1);
-                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)), Toast.LENGTH_LONG).show();
+                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)) +" "+
+                            String.valueOf(item.getDone()),
+                            Toast.LENGTH_LONG).show();
                 }
                 else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
