@@ -30,7 +30,7 @@ import kotlin.reflect.KVisibility;
 
 public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
-    private RcVwAdapter adapter, adapter1;
+    private RcVwAdapter adapter;
     private static List<TaskModel> taskModelList;
     private static List<TaskModel> taskModelListTrue;
 
@@ -40,9 +40,7 @@ public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtTime;
 
     {
-        taskModelListTrue = new ArrayList<>();
         taskModelList = new ArrayList<>();
-
         adapter = new RcVwAdapter(this.addTaskModelList());
     }
 
@@ -78,22 +76,17 @@ public class MyDayViewModel extends ViewModel {
         return adapter;
     }
 
-    public RcVwAdapter getAdapter1(){
-        adapter1 = new RcVwAdapter(this.addTaskModelListTrue());
-        return adapter1;
-    }
-
-    public List<TaskModel> addTaskModelListTrue(){
-        for(int i = 0; i < taskModelList.size(); i++)
-        {
-            if(taskModelList.get(i).getDone() == 1)
-            {
-                taskModelListTrue.add(taskModelList.get(i));
-                taskModelList.remove(taskModelList.get(i));
-            }
-        }
-        return taskModelListTrue;
-    }
+//    public List<TaskModel> addTaskModelListTrue(){
+//        for(int i = 0; i < taskModelList.size(); i++)
+//        {
+//            if(taskModelList.get(i).getDone() == 1)
+//            {
+//                taskModelListTrue.add(taskModelList.get(i));
+//                taskModelList.remove(taskModelList.get(i));
+//            }
+//        }
+//        return taskModelListTrue;
+//    }
 
     public List<TaskModel> addTaskModelList(){
         taskModelList.add(new TaskModel("Home Work A"));

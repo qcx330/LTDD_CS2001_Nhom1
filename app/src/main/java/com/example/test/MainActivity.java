@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.test.adapter.RcVwAdapter;
-import com.example.test.controller.task.TaskController;
+//import com.example.test.controller.task.TaskController;
 import com.example.test.model.TaskModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
         myRef.setValue("Hello, World!");
 
-        TaskController taskController = new TaskController();
-        taskController.CreateTask("AyYo");
+//        TaskController taskController = new TaskController();
+//        taskController.CreateTask("Ay");
 
         //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {

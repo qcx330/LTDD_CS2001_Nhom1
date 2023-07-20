@@ -40,7 +40,7 @@ public class TaskModel {
         setTask(task);
         setImpo(0);
         setDone(0);
-        setId(0);
+        setId(1);
     }
     public String getTask() {
         return task;
