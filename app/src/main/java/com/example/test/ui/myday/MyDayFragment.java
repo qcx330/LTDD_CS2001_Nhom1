@@ -53,11 +53,11 @@ public class MyDayFragment extends Fragment {
         return root;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//
+//    }
 
     @Override
     public void onDestroyView() {
