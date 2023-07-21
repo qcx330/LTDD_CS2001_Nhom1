@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.test.MainActivity;
 import com.example.test.R;
 import com.example.test.adapter.RcVwAdapter;
+import com.example.test.controller.task.TaskController;
 import com.example.test.model.TaskModel;
 
 import java.text.DateFormat;
@@ -32,7 +33,7 @@ public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
     private RcVwAdapter adapter;
     private static List<TaskModel> taskModelList;
-    private static List<TaskModel> taskModelListTrue;
+    TaskController taskController = new TaskController();
 
     public MutableLiveData<String> getTxtTime() {
         return txtTime;
@@ -89,11 +90,12 @@ public class MyDayViewModel extends ViewModel {
 //    }
 
     public List<TaskModel> addTaskModelList(){
-        taskModelList.add(new TaskModel("Home Work A"));
-        taskModelList.add(new TaskModel("Home Work B"));
-        taskModelList.add(new TaskModel("Home Work C"));
-        taskModelList.add(new TaskModel("Home Work D"));
-        taskModelList.add(new TaskModel("Home Work E"));
+//        taskModelList.add(new TaskModel("Home Work A"));
+//        taskModelList.add(new TaskModel("Home Work B"));
+//        taskModelList.add(new TaskModel("Home Work C"));
+//        taskModelList.add(new TaskModel("Home Work D"));
+//        taskModelList.add(new TaskModel("Home Work E"));
+        taskModelList = taskController.GetAllTask();
         return taskModelList;
     }
 
