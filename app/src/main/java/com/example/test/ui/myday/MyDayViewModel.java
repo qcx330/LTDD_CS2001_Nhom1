@@ -33,7 +33,6 @@ public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
     private RcVwAdapter adapter;
     private static List<TaskModel> taskModelList;
-    private static List<TaskModel> taskModelListTrue;
     TaskController taskController = new TaskController();
 
     public MutableLiveData<String> getTxtTime() {

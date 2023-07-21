@@ -20,6 +20,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TaskController extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,8 +56,8 @@ public class TaskController extends AppCompatActivity {
 
     }
 
-    public ArrayList<TaskModel> GetAllTask() {
-        ArrayList<TaskModel> lst = new ArrayList<>();
+    public List<TaskModel> GetAllTask() {
+        List<TaskModel> lst = new ArrayList<>();
         db.collection("TaskModel")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
