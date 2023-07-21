@@ -1,20 +1,10 @@
 package com.example.test.model;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public class TaskModel {
     private String task;
-    private int done;
-    private int impo;
-    private int id;
-
-    public HashMap<String, Object> ConvertHashMap(){
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("task", task);
-        return hashMap;
-    }
-
+//    private int id;
 
     public int getDone() {
         return done;
@@ -32,15 +22,15 @@ public class TaskModel {
         this.impo = impo;
     }
 
-    public int getId() {return id;}
+    private int done;
 
-    public void setId(int id){this.id = id;}
+    //private Date remindDate;
+    //public TaskModel(){}
     public TaskModel(String task)
     {
         setTask(task);
-        setImpo(0);
         setDone(0);
-        setId(1);
+        setImpo(0);
     }
     public String getTask() {
         return task;
@@ -57,4 +47,5 @@ public class TaskModel {
 //    public void setId(int id) {
 //        this.id = id;
 //    }
+    private int impo;
 }
