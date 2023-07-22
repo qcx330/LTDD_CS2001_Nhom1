@@ -80,17 +80,17 @@ public class MyDayViewModel extends ViewModel {
 //    }
 //
 //
-////    public List<TaskModel> addTaskModelListTrue(){
-////        for(int i = 0; i < taskModelList.size(); i++)
-////        {
-////            if(taskModelList.get(i).getDone() == 1)
-////            {
-////                taskModelListTrue.add(taskModelList.get(i));
-////                taskModelList.remove(taskModelList.get(i));
-////            }
-////        }
-////        return taskModelListTrue;
-////    }
+//    public List<TaskModel> addTaskModelListTrue(){
+//        for(int i = 0; i < taskModelList.size(); i++)
+//        {
+//            if(taskModelList.get(i).getDone() == 1)
+//            {
+//                taskModelListTrue.add(taskModelList.get(i));
+//                taskModelList.remove(taskModelList.get(i));
+//            }
+//        }
+//        return taskModelListTrue;
+//    }
 
 //    public List<TaskModel> addTaskModelList(){
 ////        taskModelList.add(new TaskModel("Home Work A"));
