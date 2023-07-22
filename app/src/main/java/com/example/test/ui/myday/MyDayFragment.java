@@ -59,6 +59,7 @@ public class MyDayFragment extends Fragment {
             @Override
             public void onChanged(List<TaskModel> taskModels) {
                 adapter = new RcVwAdapter(taskModels);
+                adapter.notifyDataSetChanged();
                 recyView.setAdapter(adapter);
                 recyView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
