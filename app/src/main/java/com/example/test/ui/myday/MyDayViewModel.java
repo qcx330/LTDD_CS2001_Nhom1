@@ -25,14 +25,16 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import kotlin.reflect.KVisibility;
 
 public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
-    private RcVwAdapter adapter;
-    private static List<TaskModel> taskModelList;
+
+    public MutableLiveData<List<TaskModel>> getTaskListLiveData() {
+        return taskListLiveData;
+    }
+
+    private MutableLiveData<List<TaskModel>> taskListLiveData;
+    private List<TaskModel> taskList;
     TaskController taskController = new TaskController();
 
     public MutableLiveData<String> getTxtTime() {
@@ -40,17 +42,21 @@ public class MyDayViewModel extends ViewModel {
     }
     private final MutableLiveData<String> txtTime;
 
-    {
-        taskModelList = new ArrayList<>();
-        adapter = new RcVwAdapter(this.addTaskModelList());
-    }
-
     public MyDayViewModel() {
 
         txtGreat = new MutableLiveData<>();
         txtGreat.setValue("Good "+ getTime());
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
+
+        taskListLiveData = new MutableLiveData<>();
+        taskListLiveData.setValue(getList());
+
+    }
+    private List<TaskModel> getList(){
+        taskList = new ArrayList<>();
+        taskList = taskController.GetAllTask();
+        return taskList;
     }
     public String getDate(){
         SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM dd, yyyy");
@@ -68,36 +74,37 @@ public class MyDayViewModel extends ViewModel {
             return "Evening";
         else return "Night";
     }
-    public List<TaskModel> getTaskModelList()
-    {
-        return this.taskModelList;
-    }
-
-    public RcVwAdapter getAdapter(){
-        return adapter;
-    }
-
-//    public List<TaskModel> addTaskModelListTrue(){
-//        for(int i = 0; i < taskModelList.size(); i++)
-//        {
-//            if(taskModelList.get(i).getDone() == 1)
-//            {
-//                taskModelListTrue.add(taskModelList.get(i));
-//                taskModelList.remove(taskModelList.get(i));
-//            }
-//        }
-//        return taskModelListTrue;
+//    public List<TaskModel> getTaskModelList()
+//    {
+//        return this.taskModelList;
 //    }
+//
+//
+////    public List<TaskModel> addTaskModelListTrue(){
+////        for(int i = 0; i < taskModelList.size(); i++)
+////        {
+////            if(taskModelList.get(i).getDone() == 1)
+////            {
+////                taskModelListTrue.add(taskModelList.get(i));
+////                taskModelList.remove(taskModelList.get(i));
+////            }
+////        }
+////        return taskModelListTrue;
+////    }
 
-    public List<TaskModel> addTaskModelList(){
-//        taskModelList.add(new TaskModel("Home Work A"));
-//        taskModelList.add(new TaskModel("Home Work B"));
-//        taskModelList.add(new TaskModel("Home Work C"));
-//        taskModelList.add(new TaskModel("Home Work D"));
-//        taskModelList.add(new TaskModel("Home Work E"));
-        taskModelList = taskController.GetAllTask();
-        return taskModelList;
-    }
+//    public List<TaskModel> addTaskModelList(){
+////        taskModelList.add(new TaskModel("Home Work A"));
+////        taskModelList.add(new TaskModel("Home Work B"));
+////        taskModelList.add(new TaskModel("Home Work C"));
+////        taskModelList.add(new TaskModel("Home Work D"));
+////        taskModelList.add(new TaskModel("Home Work E"));
+//        taskModelList = taskController.GetAllTask();
+//        ArrayList<TaskModel> list = new ArrayList<>();
+//        for(TaskModel i :taskModelList){
+//            list.add(i);
+//        }
+//        return list;
+//    }
 
     public LiveData<String> getTxtGrate() {
         return txtGreat;
