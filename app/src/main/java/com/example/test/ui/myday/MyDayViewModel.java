@@ -34,7 +34,7 @@ public class MyDayViewModel extends ViewModel {
     }
 
     private MutableLiveData<List<TaskModel>> taskListLiveData;
-    private List<TaskModel> taskList;
+    private List<TaskModel> taskList = new ArrayList<>();
     TaskController taskController = new TaskController();
 
     public MutableLiveData<String> getTxtTime() {
@@ -49,12 +49,11 @@ public class MyDayViewModel extends ViewModel {
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
 
+
         taskListLiveData = new MutableLiveData<>();
         taskListLiveData.setValue(getList());
-
     }
-    private List<TaskModel> getList(){
-        taskList = new ArrayList<>();
+    public List<TaskModel> getList(){
         taskList = taskController.GetAllTask();
         return taskList;
     }
@@ -93,17 +92,16 @@ public class MyDayViewModel extends ViewModel {
 //    }
 
 //    public List<TaskModel> addTaskModelList(){
-////        taskModelList.add(new TaskModel("Home Work A"));
-////        taskModelList.add(new TaskModel("Home Work B"));
-////        taskModelList.add(new TaskModel("Home Work C"));
-////        taskModelList.add(new TaskModel("Home Work D"));
-////        taskModelList.add(new TaskModel("Home Work E"));
-//        taskModelList = taskController.GetAllTask();
-//        ArrayList<TaskModel> list = new ArrayList<>();
-//        for(TaskModel i :taskModelList){
-//            list.add(i);
-//        }
-//        return list;
+//        taskList.add(new TaskModel("Home Work A"));
+//        taskList.add(new TaskModel("Home Work B"));
+//        taskList.add(new TaskModel("Home Work C"));
+//        taskList.add(new TaskModel("Home Work D"));
+//        taskList.add(new TaskModel("Home Work E"));
+////        taskModelList = taskController.GetAllTask();
+////        ArrayList<TaskModel> list = new ArrayList<>();
+////        for(TaskModel i :taskModelList){
+////            list.add(i);
+//        return taskList;
 //    }
 
     public LiveData<String> getTxtGrate() {
