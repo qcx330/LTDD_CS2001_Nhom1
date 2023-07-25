@@ -7,30 +7,21 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
-//import com.example.test.controller.task.TaskController;
+import com.example.test.controller.task.TaskController;
 import com.example.test.model.TaskModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
 
     private List<TaskModel> taskList;
-
-    public void setTaskList(TaskModel taskList){
-        this.taskList.add(taskList);
-    }
-
-    public List<TaskModel> getTaskList(){
-        return this.taskList;
-    }
+    TaskController taskController = new TaskController();
 
     public RcVwAdapter(List<TaskModel> taskList){
         this.taskList = taskList;
@@ -48,7 +39,6 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         final TaskModel item = taskList.get(position);
         holder.txtActivity.setText(item.getTask());
-        //holder.txtTime.setText(item);
         holder.chbxDone.setChecked(toBoolean(item.getDone()));
         holder.chbxDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -59,14 +49,13 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
                     item.setImpo(1);
-                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)) +" "+
-                            String.valueOf(item.getDone()),
-                            Toast.LENGTH_LONG).show();
+                    taskController.EditTask(item.getTask(), item.getDone());
                 }
                 else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
                     item.setImpo(0);
+                    taskController.EditTask(item.getTask(), item.getDone());
                 }
             }
         });

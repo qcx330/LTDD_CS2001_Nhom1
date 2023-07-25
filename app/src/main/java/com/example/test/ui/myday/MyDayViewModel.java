@@ -1,27 +1,11 @@
 package com.example.test.ui.myday;
 
-import android.app.Application;
-import android.text.Layout;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.test.MainActivity;
-import com.example.test.R;
-import com.example.test.adapter.RcVwAdapter;
 import com.example.test.controller.task.TaskController;
 import com.example.test.model.TaskModel;
-
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,36 +57,6 @@ public class MyDayViewModel extends ViewModel {
             return "Evening";
         else return "Night";
     }
-//    public List<TaskModel> getTaskModelList()
-//    {
-//        return this.taskModelList;
-//    }
-//
-//
-//    public List<TaskModel> addTaskModelListTrue(){
-//        for(int i = 0; i < taskModelList.size(); i++)
-//        {
-//            if(taskModelList.get(i).getDone() == 1)
-//            {
-//                taskModelListTrue.add(taskModelList.get(i));
-//                taskModelList.remove(taskModelList.get(i));
-//            }
-//        }
-//        return taskModelListTrue;
-//    }
-
-//    public List<TaskModel> addTaskModelList(){
-//        taskList.add(new TaskModel("Home Work A"));
-//        taskList.add(new TaskModel("Home Work B"));
-//        taskList.add(new TaskModel("Home Work C"));
-//        taskList.add(new TaskModel("Home Work D"));
-//        taskList.add(new TaskModel("Home Work E"));
-////        taskModelList = taskController.GetAllTask();
-////        ArrayList<TaskModel> list = new ArrayList<>();
-////        for(TaskModel i :taskModelList){
-////            list.add(i);
-//        return taskList;
-//    }
 
     public LiveData<String> getTxtGrate() {
         return txtGreat;

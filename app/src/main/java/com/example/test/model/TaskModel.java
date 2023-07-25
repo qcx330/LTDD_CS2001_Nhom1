@@ -1,6 +1,6 @@
 package com.example.test.model;
 
-import java.util.Date;
+
 import java.util.HashMap;
 
 public class TaskModel {
@@ -12,14 +12,13 @@ public class TaskModel {
         id++;
     }
 
-    public TaskModel() {
-    }
+    public TaskModel() {}
 
     public HashMap<String, Object> ConvertHashMap(){
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", id);
-        hashMap.put("task", task);
         hashMap.put("impo", impo);
+        hashMap.put("task", task);
         hashMap.put("done", done);
         return hashMap;
     }
