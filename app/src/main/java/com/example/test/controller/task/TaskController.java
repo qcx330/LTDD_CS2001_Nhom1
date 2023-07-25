@@ -25,11 +25,11 @@ public class TaskController extends AppCompatActivity {
         databaseReference.child(nameTask).setValue(taskModel);
     }
 
-    public void EditTask(String nameTask, int checkDone){
+    public void EditTask(String nameTask, String nameCheck ,int checkDone){
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snapshot.getRef().child(nameTask).child("done").setValue(checkDone);
+                snapshot.getRef().child(nameTask).child(nameCheck).setValue(checkDone);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
@@ -42,7 +42,6 @@ public class TaskController extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 lst.add(snapshot.getValue(TaskModel.class));
-                Log.d("SNAP", snapshot.getValue(TaskModel.class).toString());
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}

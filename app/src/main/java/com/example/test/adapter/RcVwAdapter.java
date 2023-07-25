@@ -4,6 +4,8 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -37,6 +39,11 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     }
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+        //Animation
+//        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_in_dialog)
+
+
+
         final TaskModel item = taskList.get(position);
         holder.txtActivity.setText(item.getTask());
         holder.chbxDone.setChecked(toBoolean(item.getDone()));
@@ -48,14 +55,12 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
-                    item.setImpo(1);
-                    taskController.EditTask(item.getTask(), item.getDone());
+                    taskController.EditTask(item.getTask(), "done", item.getDone());
                 }
                 else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    item.setImpo(0);
-                    taskController.EditTask(item.getTask(), item.getDone());
+                    taskController.EditTask(item.getTask(), "done", item.getDone());
                 }
             }
         });
@@ -63,14 +68,25 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxImp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(holder.chbxImp.isChecked())
+                {
+                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
+                    item.setImpo(1);
+                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
+                }
+                else {
+                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                    item.setImpo(0);
+                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
+                }
             }
         });
 
         holder.setItemClickListener(new TaskViewHolder.ItemClickListener() {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
-                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
             }
         });
     }

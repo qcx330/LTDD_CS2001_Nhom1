@@ -25,8 +25,6 @@ public class MyDayFragment extends Fragment {
     private RecyclerView recyView, recyViewTrue;
     private RcVwAdapter adapter, adapterTrue;
     MyDayViewModel myDayViewModel = new MyDayViewModel();
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         myDayViewModel = new ViewModelProvider(this).get(MyDayViewModel.class);
@@ -46,7 +44,7 @@ public class MyDayFragment extends Fragment {
                 try {
                     adapter = new RcVwAdapter(taskModels);
 //                    adapterTrue = new RcVwAdapter(taskModels);
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
 //                    recyViewTrue.setAdapter(adapterTrue);
 //                    recyViewTrue.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyView.setAdapter(adapter);

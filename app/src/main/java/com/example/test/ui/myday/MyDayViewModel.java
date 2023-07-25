@@ -33,7 +33,6 @@ public class MyDayViewModel extends ViewModel {
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
 
-
         taskListLiveData = new MutableLiveData<>();
         taskListLiveData.setValue(getList());
     }
