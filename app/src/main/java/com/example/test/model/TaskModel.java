@@ -2,11 +2,23 @@ package com.example.test.model;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 public class TaskModel {
     private String task;
     private int done;
     private int impo;
+    private Date date;
+    private Date time;
+    public List<StepModel> getStepList() {
+        return stepList;
+    }
+
+    public void setStepList(List<StepModel> stepList) {
+        this.stepList = stepList;
+    }
+
+    private List<StepModel> stepList;
     private static int id =1;
     {
         id++;

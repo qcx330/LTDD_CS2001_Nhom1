@@ -36,7 +36,7 @@ public class MyDayFragment extends Fragment {
     private RecyclerView recyView;
     private RcVwAdapter adapter;
     List<TaskModel> lst;
-    MyDayViewModel myDayViewModel = new MyDayViewModel();
+    MyDayViewModel myDayViewModel;
     TaskController taskController = new TaskController();
 
 
@@ -49,21 +49,23 @@ public class MyDayFragment extends Fragment {
         View root = binding.getRoot();
 
         final TextView textView = binding.textGreat;
-        myDayViewModel.getTxtGrate().observe(getViewLifecycleOwner(), textView::setText);
+        myDayViewModel.getTxtGrate().observe(getViewLifecycleOwner(),textView::setText);
 
         final TextView textView1 = binding.txtTime;
-        myDayViewModel.getTxtTime().observe(getViewLifecycleOwner(), textView1::setText);
+        myDayViewModel.getTxtTime().observe(getViewLifecycleOwner(),textView1::setText);
 
         recyView = binding.recycleView;
-
-        lst = myDayViewModel.getList();
-        Log.d("================", lst.toString());
         myDayViewModel.getTaskListLiveData().observe(getViewLifecycleOwner(), new Observer<List<TaskModel>>() {
             @Override
             public void onChanged(List<TaskModel> taskModels) {
-                adapter = new RcVwAdapter(taskModels);
-                recyView.setAdapter(adapter);
-                recyView.setLayoutManager(new LinearLayoutManager(getContext()));
+                try {
+                    adapter = new RcVwAdapter(taskModels);
+                    Thread.sleep(1000);
+                    recyView.setAdapter(adapter);
+                    recyView.setLayoutManager(new LinearLayoutManager(getContext()));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 //        lst = taskController.GetAllTask();
