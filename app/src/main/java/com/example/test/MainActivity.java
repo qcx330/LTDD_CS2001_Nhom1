@@ -1,18 +1,10 @@
 package com.example.test;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -21,40 +13,28 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.test.adapter.RcVwAdapter;
-//import com.example.test.controller.task.TaskController;
-import com.example.test.controller.task.TaskController;
-import com.example.test.model.TaskModel;
+//import com.example.test.controller.TaskController;
+import com.example.test.controller.TaskController;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.databinding.ActivityMainBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.checkerframework.checker.units.qual.C;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.TimeZone;
 
 
@@ -65,13 +45,18 @@ public class MainActivity extends AppCompatActivity {
     BottomSheetDialog dialog;
     RecyclerView recyclerView;
     Calendar calendar = Calendar.getInstance();
+    Calendar selected = Calendar.getInstance();
+    SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM dd, yyyy");
     int hours = calendar.get(Calendar.HOUR_OF_DAY);
     int minutes = calendar.get(Calendar.MINUTE);
+    int year = calendar.get(Calendar.YEAR);
+    int month = calendar.get(Calendar.MONTH);
+    int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     TaskController taskController = new TaskController();
-    DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,37 +123,39 @@ public class MainActivity extends AppCompatActivity {
                 if (edtTask.getText().toString().equals(""))
                     Toast.makeText(MainActivity.this, "Nhap task", Toast.LENGTH_SHORT).show();
                 else {
-                    taskController.CreateTask(edtTask.getText().toString());
+                    taskController.CreateTask(edtTask.getText().toString(), selected.getTime());
                     Toast.makeText(MainActivity.this, edtTask.getText().toString(), Toast.LENGTH_SHORT).show();
                     edtTask.setText("");
                 }
             }
         });
-        boolean isOkayClicked;
         btnSetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MaterialDatePicker materialDatePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Select date").build();
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, androidx.appcompat.R.style.Theme_AppCompat_Dialog, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
-                        btnSetDate.setText(materialDatePicker.getHeaderText());
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        selected.set(Calendar.YEAR, year);
+                        selected.set(Calendar.MONTH, month);
+                        selected.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        String time = simpleformat.format(selected.getTime());
+                        btnSetDate.setText(time);
                     }
-                });
-                materialDatePicker.show(getSupportFragmentManager(), "TAG");
+                }, year, month, dayOfMonth);
+                datePickerDialog.show();
             }
         });
+
         btnSetTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this, androidx.appcompat.R.style.Theme_AppCompat_Dialog, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Calendar c = Calendar.getInstance();
-                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        c.set(Calendar.MINUTE, minute);
-                        c.setTimeZone(TimeZone.getDefault());
-                        String time = format.format(c.getTime());
+                        selected.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        selected.set(Calendar.MINUTE, minute);
+                        selected.setTimeZone(TimeZone.getDefault());
+                        String time = format.format(selected.getTime());
                         btnSetTime.setText(time);
                     }
                 }, hours, minutes, false);
@@ -179,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getCurrentDate(){
-        SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM dd, yyyy");
+
         return simpleformat.format(new Date());
     }
 

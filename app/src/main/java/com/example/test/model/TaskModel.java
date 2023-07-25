@@ -8,7 +8,13 @@ public class TaskModel {
     private String task;
     private int done;
     private int impo;
-    private Date date;
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
     private Date time;
     public List<StepModel> getStepList() {
         return stepList;
@@ -23,7 +29,6 @@ public class TaskModel {
     {
         id++;
     }
-
     public TaskModel() {
     }
 
@@ -33,6 +38,7 @@ public class TaskModel {
         hashMap.put("task", task);
         hashMap.put("impo", impo);
         hashMap.put("done", done);
+        hashMap.put("time", time);
         return hashMap;
     }
 
@@ -56,8 +62,9 @@ public class TaskModel {
     public int getId() {return id;}
 
     public void setId(int id){this.id = id;}
-    public TaskModel(String task)
+    public TaskModel(String task, Date time)
     {
+        setTime(time);
         setTask(task);
         setImpo(0);
         setDone(0);

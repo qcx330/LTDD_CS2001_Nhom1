@@ -1,27 +1,13 @@
 package com.example.test.ui.myday;
 
-import android.app.Application;
-import android.text.Layout;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.test.MainActivity;
-import com.example.test.R;
-import com.example.test.adapter.RcVwAdapter;
-import com.example.test.controller.task.TaskController;
+import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
