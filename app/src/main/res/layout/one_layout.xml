@@ -2,50 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
     android:background="@drawable/one_activity_box"
-    android:weightSum="5"
-    android:layout_marginTop="10dp">
+    android:orientation="horizontal"
+    android:weightSum="5">
+
     <CheckBox
         android:id="@+id/chbxDone"
         android:layout_width="15dp"
-        android:layout_gravity="center"
         android:layout_height="35dp"
-        android:layout_weight="1"
+        android:layout_gravity="center"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        />
+        android:layout_weight="1" />
+
     <LinearLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_weight="3"
-        >
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/txtActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Activity"
             android:textSize="25dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txtRemindTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:text="Time" />
+            android:text="Time"
+            android:textSize="15dp" />
 
     </LinearLayout>
+
     <CheckBox
-        android:layout_gravity="center"
-        android:layout_weight="1"
         android:id="@+id/chbxImp"
-        android:background="@drawable/chbox_imp"
-        android:button="@null"
         android:layout_width="15dp"
         android:layout_height="35dp"
+        android:layout_gravity="center"
         android:layout_marginRight="20dp"
-        android:scaleX="1"
+        android:layout_weight="1"
+        android:background="@drawable/chbox_imp"
         android:backgroundTint="#5C5D5E"
+        android:button="@null"
+        android:scaleX="1"
         android:scaleY="1" />
 </LinearLayout>

@@ -66,6 +66,13 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
 
             }
         });
+
+        holder.setItemClickListener(new TaskViewHolder.ItemClickListener() {
+            @Override
+            public void onClick(View view, int position, boolean isLongClick) {
+                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -73,14 +80,30 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         return taskList.size();
     }
 
-    public static class TaskViewHolder extends RecyclerView.ViewHolder{
+    public static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView txtActivity;
         CheckBox chbxDone, chbxImp;
+
+        public void setItemClickListener(ItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        private ItemClickListener itemClickListener;
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             txtActivity = itemView.findViewById(R.id.txtActivity);
             chbxImp = itemView.findViewById(R.id.chbxImp);
             chbxDone = itemView.findViewById(R.id.chbxDone);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition(),false);
+        }
+        public interface ItemClickListener {
+            void onClick(View view, int position,boolean isLongClick);
         }
     }
 }

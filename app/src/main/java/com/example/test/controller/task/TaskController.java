@@ -42,6 +42,7 @@ public class TaskController extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 lst.add(snapshot.getValue(TaskModel.class));
+                Log.d("SNAP", snapshot.getValue(TaskModel.class).toString());
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {}

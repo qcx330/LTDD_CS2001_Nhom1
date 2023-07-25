@@ -26,35 +26,26 @@
             android:layout_height="wrap_content"
             android:text="Save"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:layout_marginTop="20dp">
+
         <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnSetDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set due day"
+            android:text="Set date"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
-            android:textSize="12dp"
+            android:textSize="20dp"
             android:background="@drawable/one_activity_box"
             ></Button>
         <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnSetTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Remind me"
+            android:text="Set time"
             android:layout_weight="1"
             android:layout_marginRight="10dp"
-            android:textSize="12dp"
+            android:textSize="20dp"
             android:background="@drawable/one_activity_box"></Button>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Repeat"
-            android:layout_weight="1"
-            android:textSize="12dp"
-            android:background="@drawable/one_activity_box"></Button>
-    </LinearLayout>
 </LinearLayout>

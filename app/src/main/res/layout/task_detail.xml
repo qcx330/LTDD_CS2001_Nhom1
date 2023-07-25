@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
+
+        <CheckBox
+            android:id="@+id/chbxDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/txtTask"
+            android:layout_width="200dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:text="Activity"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:id="@+id/chbxImp"
+            android:layout_width="15dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/chbox_imp"
+            android:backgroundTint="#5C5D5E"
+            android:button="@null"
+            android:scaleX="1"
+            android:scaleY="1" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <ListView
+                android:id="@+id/lstviewStep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ListView>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:id="@+id/txtAddToMyDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to My Day"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remind me"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add due date"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Repeat"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
