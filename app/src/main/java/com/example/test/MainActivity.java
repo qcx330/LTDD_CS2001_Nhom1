@@ -1,24 +1,32 @@
 package com.example.test;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.test.controller.user.UserController;
 import com.example.test.databinding.ActivityMainBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.test.controller.task.TaskController;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtTask;
@@ -27,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     TaskController taskController = new TaskController();
+    UserController userController = new UserController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,17 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        MenuItem item = navigationView.getMenu().findItem(R.id.nav_signOut);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, SignIn.class);
+                startActivity(intent);
+                finish();
+                return true;
+            }
+        });
     }
 
     private void createDialog() {
@@ -79,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 if (edtTask.getText().toString().equals(""))
                     Toast.makeText(MainActivity.this, "Nhap task", Toast.LENGTH_SHORT).show();
                 else {
+//                    userController.addTask(edtTask.getText().toString());
                     taskController.CreateTask(edtTask.getText().toString());
                     Toast.makeText(MainActivity.this, edtTask.getText().toString(), Toast.LENGTH_SHORT).show();
                     edtTask.setText("");

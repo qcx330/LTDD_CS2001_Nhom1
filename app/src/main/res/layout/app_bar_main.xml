@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_myday"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:theme="@style/Theme.Test.AppBarOverlay">
+        android:background="@android:color/transparent"
+        android:theme="@style/Theme.Test.NoActionBar">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -24,20 +26,19 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
-    <Button
-        android:id="@+id/fab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/one_activity_box"
-        android:layout_marginBottom="16dp"
-        android:text="Add a task"
-        android:gravity="start|center"
-        android:textAllCaps="false"
-        android:drawableLeft="@drawable/ic_plus"
-        />
-
+        <Button
+            android:id="@+id/fab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/background_500"
+            android:layout_marginBottom="16dp"
+            android:text="Add a task"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:gravity="start|center"
+            android:textAllCaps="false"
+            android:drawableLeft="@drawable/ic_plus" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

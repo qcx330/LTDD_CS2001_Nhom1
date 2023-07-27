@@ -1,2 +1,24 @@
-package com.example.test.model;public class UserModel {
+package com.example.test.model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class UserModel {
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public UserModel(String email) {
+        setEmail(email);
+    }
+
+    public UserModel(){}
 }

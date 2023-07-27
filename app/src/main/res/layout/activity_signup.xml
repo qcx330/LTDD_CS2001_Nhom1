@@ -45,7 +45,7 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtSIUser"
+            android:id="@+id/txtSUEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
@@ -79,12 +79,13 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtSIConfirmPass"
+            android:id="@+id/txtSUPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textColor="@color/white"
             android:textSize="20dp"
+            android:inputType="textPassword"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,11 +115,12 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtSIPass"
+            android:id="@+id/txtSUConfirmPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textColor="@color/white"
+            android:inputType="textPassword"
             android:textSize="20dp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>

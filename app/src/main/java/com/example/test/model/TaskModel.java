@@ -27,15 +27,6 @@ public class TaskModel {
 
     public TaskModel() {}
 
-    public HashMap<String, Object> ConvertHashMap(){
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", id);
-        hashMap.put("impo", impo);
-        hashMap.put("task", task);
-        hashMap.put("done", done);
-        return hashMap;
-    }
-
 
     public int getDone() {
         return done;
