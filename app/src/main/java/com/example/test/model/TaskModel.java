@@ -1,13 +1,12 @@
 package com.example.test.model;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 public class TaskModel {
     private String task;
     private int done;
     private int impo;
+
     public Date getTime() {
         return time;
     }
@@ -15,34 +14,12 @@ public class TaskModel {
     public void setTime(Date time) {
         this.time = time;
     }
-    private Date time;
-    public List<StepModel> getStepList() {
-        return stepList;
-    }
 
-    public void setStepList(List<StepModel> stepList) {
-        this.stepList = stepList;
-    }
-
-    private List<StepModel> stepList;
+    Date time;
     private static int id =1;
     {
         id++;
     }
-    public TaskModel() {
-    }
-
-    public HashMap<String, Object> ConvertHashMap(){
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("id", id);
-        hashMap.put("task", task);
-        hashMap.put("impo", impo);
-        hashMap.put("done", done);
-        hashMap.put("time", time);
-        return hashMap;
-    }
-
-
     public int getDone() {
         return done;
     }
@@ -58,17 +35,14 @@ public class TaskModel {
     public void setImpo(int impo) {
         this.impo = impo;
     }
-
-    public int getId() {return id;}
-
-    public void setId(int id){this.id = id;}
     public TaskModel(String task, Date time)
     {
-        setTime(time);
         setTask(task);
         setImpo(0);
         setDone(0);
+        setTime(time);
     }
+    public TaskModel(){}
     public String getTask() {
         return task;
     }
@@ -76,12 +50,4 @@ public class TaskModel {
     public void setTask(String task) {
         this.task = task;
     }
-
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
 }

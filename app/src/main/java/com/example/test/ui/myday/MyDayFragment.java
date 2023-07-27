@@ -10,14 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.adapter.RcVwAdapter;
-import com.example.test.controller.TaskController;
 import com.example.test.databinding.FragmentMydayBinding;
 import com.example.test.model.TaskModel;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MyDayFragment extends Fragment {
@@ -25,14 +27,11 @@ public class MyDayFragment extends Fragment {
     private FragmentMydayBinding binding;
     private RecyclerView recyView;
     private RcVwAdapter adapter;
-    List<TaskModel> lst;
     MyDayViewModel myDayViewModel;
-    TaskController taskController = new TaskController();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-//        RefreshFrag();
         myDayViewModel =
                 new ViewModelProvider(this).get(MyDayViewModel.class);
         binding = FragmentMydayBinding.inflate(inflater, container, false);
@@ -58,41 +57,41 @@ public class MyDayFragment extends Fragment {
                 }
             }
         });
-//        lst = taskController.GetAllTask();
-//        adapter = new RcVwAdapter(lst);
-//        recyView.setAdapter(adapter);
-//        recyView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyView);
+
         return root;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-//    }
-//    Observer<List<TaskModel>> changeObserver = new Observer<List<TaskModel>>() {
-//    @Override
-//    public void onChanged(List<TaskModel> taskModels) {
-//        adapter = new RcVwAdapter(taskModels);
-//        recyView.setAdapter(adapter);
-//        recyView.setLayoutManager(new LinearLayoutManager(getContext()));
-//    }
-//};
-//
-//}};
-//    @Override
-//    public void onAttach(@NonNull Context context) {
-//        super.onAttach(context);
-//        myDayViewModel.getTaskListLiveData().observe(this, changeObserver);
-//    }
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
 
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int postion = viewHolder.getAdapterPosition();
+            switch (direction){
+                case ItemTouchHelper.LEFT:
+                    myDayViewModel.getTaskListLiveData().removeObserver(new Observer<List<TaskModel>>() {
+                        @Override
+                        public void onChanged(List<TaskModel> taskModelList) {
+                            taskModelList.remove(postion);
+                            adapter.notifyItemRemoved(postion);
+                        }
+                    });
+                    break;
+                case ItemTouchHelper.RIGHT:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
-//    void RefreshFrag(){
-//        getFragmentManager().beginTransaction().detach(this).attach(this).commit();
-//    }
 }

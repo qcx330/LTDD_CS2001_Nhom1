@@ -44,8 +44,8 @@ public class MyDayViewModel extends ViewModel {
         return taskList;
     }
     public String getDate(){
-        SimpleDateFormat simpleformat = new SimpleDateFormat("MMMM dd, yyyy");
-        return simpleformat.format(new Date());
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        return simpleFormat.format(new Date());
     }
 
     public String getTime(){
@@ -59,36 +59,6 @@ public class MyDayViewModel extends ViewModel {
             return "Evening";
         else return "Night";
     }
-//    public List<TaskModel> getTaskModelList()
-//    {
-//        return this.taskModelList;
-//    }
-//
-//
-//    public List<TaskModel> addTaskModelListTrue(){
-//        for(int i = 0; i < taskModelList.size(); i++)
-//        {
-//            if(taskModelList.get(i).getDone() == 1)
-//            {
-//                taskModelListTrue.add(taskModelList.get(i));
-//                taskModelList.remove(taskModelList.get(i));
-//            }
-//        }
-//        return taskModelListTrue;
-//    }
-
-//    public List<TaskModel> addTaskModelList(){
-//        taskList.add(new TaskModel("Home Work A"));
-//        taskList.add(new TaskModel("Home Work B"));
-//        taskList.add(new TaskModel("Home Work C"));
-//        taskList.add(new TaskModel("Home Work D"));
-//        taskList.add(new TaskModel("Home Work E"));
-////        taskModelList = taskController.GetAllTask();
-////        ArrayList<TaskModel> list = new ArrayList<>();
-////        for(TaskModel i :taskModelList){
-////            list.add(i);
-//        return taskList;
-//    }
 
     public LiveData<String> getTxtGrate() {
         return txtGreat;

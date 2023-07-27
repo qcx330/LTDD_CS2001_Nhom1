@@ -11,10 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 //import com.example.test.controller.TaskController;
+import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
 import java.text.SimpleDateFormat;
@@ -25,14 +27,7 @@ import java.util.List;
 public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private List<TaskModel> taskList;
-
-    public void setTaskList(TaskModel taskList){
-        this.taskList.add(taskList);
-    }
-
-    public List<TaskModel> getTaskList(){
-        return this.taskList;
-    }
+    TaskController taskController = new TaskController();
 
     public RcVwAdapter(List<TaskModel> taskList){
         this.taskList = taskList;
@@ -62,15 +57,12 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
-                    item.setImpo(1);
-                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)) +" "+
-                            String.valueOf(item.getDone()),
-                            Toast.LENGTH_LONG).show();
+                    taskController.EditTask(item.getTask(), "done" , item.getDone());
                 }
                 else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    item.setImpo(0);
+                    taskController.EditTask(item.getTask(), "done" , item.getDone());
                 }
             }
         });
@@ -79,7 +71,15 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxImp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                if(holder.chbxImp.isChecked())
+                {
+                    item.setImpo(1);
+                    taskController.EditTask(item.getTask(), "impo" , item.getImpo());
+                }
+                else {
+                    item.setImpo(0);
+                    taskController.EditTask(item.getTask(), "impo" , item.getImpo());
+                }
             }
         });
 
@@ -87,7 +87,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
 //                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
             }
         });
     }

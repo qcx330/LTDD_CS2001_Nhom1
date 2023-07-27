@@ -6,6 +6,7 @@ import java.util.List;
 
 public class UserModel {
     private String email;
+    private List<TaskModel> lst;
 
     public String getEmail() {
         return email;
@@ -18,6 +19,7 @@ public class UserModel {
 
     public UserModel(String email) {
         setEmail(email);
+        lst = new ArrayList<>();
     }
 
     public UserModel(){}
