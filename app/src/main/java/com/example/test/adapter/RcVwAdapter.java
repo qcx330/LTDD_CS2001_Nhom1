@@ -1,33 +1,43 @@
 package com.example.test.adapter;
 
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
-import com.example.test.controller.task.TaskController;
+//import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
-
+    SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private List<TaskModel> taskList;
-    TaskController taskController = new TaskController();
+
+    public void setTaskList(TaskModel taskList){
+        this.taskList.add(taskList);
+    }
+
+    public List<TaskModel> getTaskList(){
+        return this.taskList;
+    }
 
     public RcVwAdapter(List<TaskModel> taskList){
         this.taskList = taskList;
     }
+
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,14 +49,11 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     }
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
-        //Animation
-//        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slide_in_dialog)
-
-
-
         final TaskModel item = taskList.get(position);
         holder.txtActivity.setText(item.getTask());
+        holder.txtTime.setText(format.format(item.getTime()));
         holder.chbxDone.setChecked(toBoolean(item.getDone()));
+        //Done
         holder.chbxDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -55,31 +62,24 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
-                    taskController.EditTask(item.getTask(), "done", item.getDone());
+                    item.setImpo(1);
+                    Toast.makeText(buttonView.getContext(), String.valueOf(taskList.indexOf(item)) +" "+
+                            String.valueOf(item.getDone()),
+                            Toast.LENGTH_LONG).show();
                 }
                 else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    taskController.EditTask(item.getTask(), "done", item.getDone());
+                    item.setImpo(0);
                 }
             }
         });
+        //Important
         holder.chbxImp.setChecked(toBoolean(item.getImpo()));
         holder.chbxImp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(holder.chbxImp.isChecked())
-                {
-                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
-                    item.setImpo(1);
-                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
-                }
-                else {
-                    holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                    item.setImpo(0);
-                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
-                }
+
             }
         });
 
@@ -87,6 +87,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
 //                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -97,7 +98,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView txtActivity;
+        TextView txtActivity, txtTime;
         CheckBox chbxDone, chbxImp;
 
         public void setItemClickListener(ItemClickListener itemClickListener) {
@@ -110,6 +111,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             txtActivity = itemView.findViewById(R.id.txtActivity);
             chbxImp = itemView.findViewById(R.id.chbxImp);
             chbxDone = itemView.findViewById(R.id.chbxDone);
+            txtTime = itemView.findViewById(R.id.txtRemindTime);
 
             itemView.setOnClickListener(this);
         }

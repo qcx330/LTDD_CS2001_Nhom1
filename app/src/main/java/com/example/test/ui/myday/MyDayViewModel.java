@@ -3,8 +3,10 @@ package com.example.test.ui.myday;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.example.test.controller.task.TaskController;
+
+import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +35,7 @@ public class MyDayViewModel extends ViewModel {
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
 
+
         taskListLiveData = new MutableLiveData<>();
         taskListLiveData.setValue(getList());
     }
@@ -56,6 +59,36 @@ public class MyDayViewModel extends ViewModel {
             return "Evening";
         else return "Night";
     }
+//    public List<TaskModel> getTaskModelList()
+//    {
+//        return this.taskModelList;
+//    }
+//
+//
+//    public List<TaskModel> addTaskModelListTrue(){
+//        for(int i = 0; i < taskModelList.size(); i++)
+//        {
+//            if(taskModelList.get(i).getDone() == 1)
+//            {
+//                taskModelListTrue.add(taskModelList.get(i));
+//                taskModelList.remove(taskModelList.get(i));
+//            }
+//        }
+//        return taskModelListTrue;
+//    }
+
+//    public List<TaskModel> addTaskModelList(){
+//        taskList.add(new TaskModel("Home Work A"));
+//        taskList.add(new TaskModel("Home Work B"));
+//        taskList.add(new TaskModel("Home Work C"));
+//        taskList.add(new TaskModel("Home Work D"));
+//        taskList.add(new TaskModel("Home Work E"));
+////        taskModelList = taskController.GetAllTask();
+////        ArrayList<TaskModel> list = new ArrayList<>();
+////        for(TaskModel i :taskModelList){
+////            list.add(i);
+//        return taskList;
+//    }
 
     public LiveData<String> getTxtGrate() {
         return txtGreat;
