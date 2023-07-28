@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.test.adapter.RcVwAdapter;
 import com.example.test.model.TaskModel;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,8 @@ import java.util.Date;
 import java.util.List;
 
 public class TaskController {
+
+    RcVwAdapter adapter;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference = database.getReference("Users");
 
@@ -66,7 +69,50 @@ public class TaskController {
             }
         });
     }
-
+//    public void updateList(){
+//        databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot ds: snapshot.getChildren()){
+//                    String id = ds.getKey();
+//                    DatabaseReference idRef = FirebaseDatabase.getInstance().getReference("task").child(ds.getKey()).child("task");
+//                    idRef.addChildEventListener(new ChildEventListener() {
+//                        @Override
+//                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                            TaskModel task =  snapshot.child("id").getValue(TaskModel.class);
+//                            lst.add(task);
+//                            adapter.notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
     public List<TaskModel> GetAllTask() {
         List<TaskModel> lst = new ArrayList<>();
         databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())

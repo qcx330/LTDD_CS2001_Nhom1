@@ -1,5 +1,8 @@
 package com.example.test.adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.test.R;
 //import com.example.test.controller.TaskController;
+import com.example.test.TaskDetail;
 import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
@@ -24,12 +28,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
+public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder>{
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private List<TaskModel> taskList;
+    Context context;
     TaskController taskController = new TaskController();
 
-    public RcVwAdapter(List<TaskModel> taskList){
+    public RcVwAdapter(Context context, List<TaskModel> taskList){
+        this.context = context;
         this.taskList = taskList;
     }
 
@@ -43,7 +49,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         return num!=0;
     }
     @Override
-    public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TaskViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final TaskModel item = taskList.get(position);
         holder.txtActivity.setText(item.getTask());
         holder.txtTime.setText(format.format(item.getTime()));
@@ -71,29 +77,37 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxImp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(holder.chbxImp.isChecked())
-                {
+                if (holder.chbxImp.isChecked()) {
                     item.setImpo(1);
-                    taskController.EditTask(item.getTask(), "impo" , item.getImpo());
-                }
-                else {
+                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
+                } else {
                     item.setImpo(0);
-                    taskController.EditTask(item.getTask(), "impo" , item.getImpo());
+                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TaskDetail.class);
+                intent.putExtra("id", taskList.get(position).getId());
+                context.startActivity(intent);
             }
         });
 
-        holder.setItemClickListener(new TaskViewHolder.ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
+
+//        holder.setImpotemClickListener(new TaskViewHolder.ItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position, boolean isLongClick) {
 //                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
-//                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
-            }
-        });
+////                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
+        if(taskList==null) return 0;
         return taskList.size();
     }
 

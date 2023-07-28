@@ -16,10 +16,21 @@ public class TaskModel {
     }
 
     Date time;
-    private static int id =1;
-    {
-        id++;
+
+    public int getId() {
+        return id;
     }
+
+    static int count;
+    {
+        count++;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
     public int getDone() {
         return done;
     }
@@ -37,6 +48,7 @@ public class TaskModel {
     }
     public TaskModel(String task, Date time)
     {
+        setId(count);
         setTask(task);
         setImpo(0);
         setDone(0);

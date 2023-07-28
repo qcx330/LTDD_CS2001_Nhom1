@@ -48,7 +48,7 @@ public class MyDayFragment extends Fragment {
             @Override
             public void onChanged(List<TaskModel> taskModels) {
                 try {
-                    adapter = new RcVwAdapter(taskModels);
+                    adapter = new RcVwAdapter(getContext(),taskModels);
                     Thread.sleep(1000);
                     recyView.setAdapter(adapter);
                     recyView.setLayoutManager(new LinearLayoutManager(getContext()));
