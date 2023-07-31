@@ -22,19 +22,26 @@ import com.example.test.R;
 import com.example.test.TaskDetail;
 import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder>{
+public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder> {
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private List<TaskModel> taskList;
     Context context;
+    TaskModel mtask = new TaskModel();
     TaskController taskController = new TaskController();
 
-    public RcVwAdapter(Context context, List<TaskModel> taskList){
+    public RcVwAdapter(Context context, List<TaskModel> taskList) {
         this.context = context;
         this.taskList = taskList;
     }
@@ -42,12 +49,14 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_layout, parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_layout, parent, false);
         return new TaskViewHolder(v);
     }
-    public boolean toBoolean (int num){
-        return num!=0;
+
+    public boolean toBoolean(int num) {
+        return num != 0;
     }
+
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final TaskModel item = taskList.get(position);
@@ -58,17 +67,15 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(holder.chbxDone.isChecked())
-                {
+                if (holder.chbxDone.isChecked()) {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
-                    taskController.EditTask(item.getTask(), "done" , item.getDone());
-                }
-                else {
+                    taskController.EditTask(item.getTask(), "done", item.getDone());
+                } else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    taskController.EditTask(item.getTask(), "done" , item.getDone());
+                    taskController.EditTask(item.getTask(), "done", item.getDone());
                 }
             }
         });
@@ -86,32 +93,51 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                 }
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+        holder.setItemClickListener(new TaskViewHolder.ItemClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view, int position, boolean isLongClick) {
                 Intent intent = new Intent(context, TaskDetail.class);
-                intent.putExtra("id", taskList.get(position).getId());
-                context.startActivity(intent);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference databaseReference = database.getReference("Users");
+                databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .child("task")
+                        .orderByChild("id")
+                        .equalTo(taskList.get(position).getId())
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds: snapshot.getChildren()){
+                                    TaskModel task = ds.getValue(TaskModel.class);
+                                    Log.d("TEST", "value: "+ task.getTask());
+                                    intent.putExtra("task", task.getTask().toString());
+                                    intent.putExtra("id", task.getId());
+                                    intent.putExtra("impo", task.getImpo());
+                                    intent.putExtra("done", task.getDone());
+                                    Log.d("TEST", "value: "+ ds.child("task").getValue());
+
+                                }
+                                context.startActivity(intent);
+                            }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                throw error.toException();
+                            }
+                        });
+
             }
         });
-
-
-//        holder.setImpotemClickListener(new TaskViewHolder.ItemClickListener() {
-//            @Override
-//            public void onClick(View view, int position, boolean isLongClick) {
-//                Toast.makeText(view.getContext(),taskList.get(position).getTask(), Toast.LENGTH_SHORT).show();
-////                Toast.makeText(view.getContext(),format.format(taskList.get(position).getTime()), Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
 
     @Override
     public int getItemCount() {
-        if(taskList==null) return 0;
+        if (taskList == null) return 0;
         return taskList.size();
     }
 
-    public static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtActivity, txtTime;
         CheckBox chbxDone, chbxImp;
 
@@ -120,6 +146,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         }
 
         private ItemClickListener itemClickListener;
+
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
             txtActivity = itemView.findViewById(R.id.txtActivity);
@@ -132,10 +159,11 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition(),false);
+            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
+
         public interface ItemClickListener {
-            void onClick(View view, int position,boolean isLongClick);
+            void onClick(View view, int position, boolean isLongClick);
         }
     }
 }

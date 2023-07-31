@@ -20,17 +20,16 @@ public class TaskModel {
     public int getId() {
         return id;
     }
-
-    static int count;
-    {
-        count++;
-    }
+    static int count = 0;
 
     public void setId(int id) {
         this.id = id;
     }
 
     private int id;
+    {
+        count++;
+    }
     public int getDone() {
         return done;
     }

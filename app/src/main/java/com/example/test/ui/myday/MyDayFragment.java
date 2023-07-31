@@ -47,14 +47,9 @@ public class MyDayFragment extends Fragment {
         myDayViewModel.getTaskListLiveData().observe(getViewLifecycleOwner(), new Observer<List<TaskModel>>() {
             @Override
             public void onChanged(List<TaskModel> taskModels) {
-                try {
-                    adapter = new RcVwAdapter(getContext(),taskModels);
-                    Thread.sleep(1000);
-                    recyView.setAdapter(adapter);
-                    recyView.setLayoutManager(new LinearLayoutManager(getContext()));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                adapter = new RcVwAdapter(getContext(),taskModels);
+                recyView.setAdapter(adapter);
+                recyView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
 

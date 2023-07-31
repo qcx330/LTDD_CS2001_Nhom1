@@ -47,7 +47,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +58,11 @@
                 android:id="@+id/lstviewStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></ListView>
-
+            <Button
+                android:id="@+id/btnAddStep"
+                android:text="+ add step"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/txtAddToMyDay"
                 android:layout_width="match_parent"
@@ -97,5 +101,12 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>
-
+    <Button
+        android:id="@+id/btnSaveEdit"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="right"
+        android:layout_marginRight="20dp"/>
 </LinearLayout>
