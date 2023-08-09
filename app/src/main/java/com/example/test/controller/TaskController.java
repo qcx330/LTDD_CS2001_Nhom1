@@ -10,6 +10,8 @@ import com.example.test.adapter.RcVwAdapter;
 import com.example.test.model.TaskModel;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -23,7 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TaskController {
     List<TaskModel> lst = new ArrayList<>();
@@ -35,20 +39,20 @@ public class TaskController {
         TaskModel taskModel = new TaskModel(nameTask, time);
         databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("task")
-                .child(nameTask)
+                .child(String.valueOf(taskModel.getId()))
                 .setValue(taskModel);
     }
 
-    public void EditTask(String nameTask, String nameCheck, int checkDone) {
+    public void EditTask(int id, String nameCheck, int checkBox) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 snapshot.getRef()
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                         .child("task")
-                        .child(nameTask)
+                        .child(String.valueOf(id))
                         .child(nameCheck)
-                        .setValue(checkDone);
+                        .setValue(checkBox);
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users")
                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
@@ -145,32 +149,5 @@ public class TaskController {
                     }
                 });
         return lst;
-    }
-    public TaskModel getTask(int id){
-        TaskModel mtask = new TaskModel();
-        databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("task")
-                .orderByChild("id").equalTo(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot ds: snapshot.getChildren()){
-                            TaskModel task = ds.getValue(TaskModel.class);
-                            mtask.setTask(task.getTask());
-                            mtask.setId(task.getId());
-                            mtask.setImpo(task.getImpo());
-                            mtask.setDone(task.getDone());
-                            Log.d("TEST", "value: "+ ds.child("task").getValue());
-                            Log.d("TEST", "value: "+ ds.child("id").getValue());
-                            Log.d("TEST", "task: "+ mtask.getTask());
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-        return mtask;
     }
 }

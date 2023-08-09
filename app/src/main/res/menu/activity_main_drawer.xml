@@ -10,7 +10,7 @@
             android:title="@string/menu_myDay" />
         <item
             android:id="@+id/nav_important"
-            android:icon="@drawable/ic_impo"
+            android:icon="@drawable/ic_star_fill"
             android:title="@string/menu_important" />
         <item
             android:id="@+id/nav_planned"

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_impo"
+    <item android:drawable="@drawable/ic_star"
         android:state_checked="false"
-        android:scaleType="fitXY" />
-    <item android:drawable="@drawable/ic_impo_checked"
-        android:state_checked="true"
-        android:scaleType="fitXY"
         />
-    <item android:drawable="@drawable/ic_impo"/>
+    <item android:drawable="@drawable/ic_star_fill"
+        android:state_checked="true"
+        />
 </selector>

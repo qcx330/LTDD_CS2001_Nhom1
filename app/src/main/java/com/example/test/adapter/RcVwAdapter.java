@@ -69,13 +69,12 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (holder.chbxDone.isChecked()) {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.chbxDone.setBackgroundResource(R.drawable.chbox_done);
                     item.setDone(1);
-                    taskController.EditTask(item.getTask(), "done", item.getDone());
+                    taskController.EditTask(item.getId(), "done", item.getDone());
                 } else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    taskController.EditTask(item.getTask(), "done", item.getDone());
+                    taskController.EditTask(item.getId(), "done", item.getDone());
                 }
             }
         });
@@ -86,10 +85,10 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (holder.chbxImp.isChecked()) {
                     item.setImpo(1);
-                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
+                    taskController.EditTask(item.getId(), "impo", item.getImpo());
                 } else {
                     item.setImpo(0);
-                    taskController.EditTask(item.getTask(), "impo", item.getImpo());
+                    taskController.EditTask(item.getId(), "impo", item.getImpo());
                 }
             }
         });
@@ -114,7 +113,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                                     intent.putExtra("id", task.getId());
                                     intent.putExtra("impo", task.getImpo());
                                     intent.putExtra("done", task.getDone());
-                                    Log.d("TEST", "value: "+ ds.child("task").getValue());
+                                    intent.putExtra("time", task.getTime());
 
                                 }
                                 context.startActivity(intent);

@@ -14,14 +14,15 @@
 
         <CheckBox
             android:id="@+id/chbxDone"
+            android:width="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1" />
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:button="@drawable/chbox_done"/>
 
-        <TextView
+        <EditText
             android:id="@+id/txtTask"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -29,7 +30,8 @@
             android:layout_weight="1"
             android:text="Activity"
             android:textSize="25dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#8A2BE2"/>
 
         <CheckBox
             android:id="@+id/chbxImp"
@@ -38,9 +40,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:background="@drawable/chbox_imp"
-            android:backgroundTint="#5C5D5E"
-            android:button="@null"
+            android:button="@drawable/chbox_imp"
             android:scaleX="1"
             android:scaleY="1" />
     </LinearLayout>
@@ -59,46 +59,66 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></ListView>
             <Button
+                android:layout_marginTop="5dp"
                 android:id="@+id/btnAddStep"
                 android:text="+ add step"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/txtAddToMyDay"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+
+                />
+            <Button
+                android:id="@+id/btnAddToMyDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Add to My Day"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_marginRight="20dp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"/>
 
-            <TextView
+            <Button
+                android:id="@+id/btnRemind"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Remind me"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                />
 
-            <TextView
+            <Button
+                android:id="@+id/btnAddDue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Add due date"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginRight="20dp"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"
+                />
 
-            <TextView
+            <Button
+                android:id="@+id/btnRepeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Repeat"
                 android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:textAlignment="viewStart"/>
         </LinearLayout>
     </ScrollView>
     <Button
