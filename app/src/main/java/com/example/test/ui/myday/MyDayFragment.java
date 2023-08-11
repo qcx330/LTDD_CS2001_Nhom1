@@ -1,39 +1,33 @@
 package com.example.test.ui.myday;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.test.R;
+import com.example.test.adapter.ItemTouchHelperListener;
 import com.example.test.adapter.RcVwAdapter;
+import com.example.test.adapter.RecyclerViewItemTouchHelper;
 import com.example.test.databinding.FragmentMydayBinding;
 import com.example.test.model.TaskModel;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-public class MyDayFragment extends Fragment {
+public class MyDayFragment extends Fragment implements ItemTouchHelperListener{
 
     private FragmentMydayBinding binding;
     private RecyclerView recyView, recyViewTrue;
@@ -42,9 +36,8 @@ public class MyDayFragment extends Fragment {
     private RcVwAdapter adapter, adapterTrue;
     MyDayViewModel myDayViewModel;
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState){
         myDayViewModel =
                 new ViewModelProvider(this).get(MyDayViewModel.class);
         binding = FragmentMydayBinding.inflate(inflater, container, false);
@@ -73,15 +66,27 @@ public class MyDayFragment extends Fragment {
 //        recyViewTrue.setAdapter(adapterTrue);
 //        myDayViewModel.getListTrue(lstTrue, adapterTrue);
 
-
         myDayViewModel.DeleteTask(lst, adapter, recyView);
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new RecyclerViewItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyView);
 
         return root;
     }
 
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        binding = null;
+//    }
+//
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    public void onSwiped(RecyclerView.ViewHolder viewHolder) {
+        if (viewHolder instanceof RcVwAdapter.TaskViewHolder){
+            int idDelete = lst.get(viewHolder.getAdapterPosition()).getId();
+            lst.remove(viewHolder.getAdapterPosition());
+            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
+            adapter.removeItem(idDelete);
+        }
     }
 }

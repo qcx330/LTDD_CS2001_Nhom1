@@ -22,7 +22,7 @@ public class ImportantViewModel extends ViewModel {
     }
 
     public void getList(List<TaskModel> lst, RcVwAdapter adapter, String nameFragment) {
-        taskController.GetTask(lst, adapter, nameFragment);
+//        taskController.GetTask(lst, adapter, nameFragment);
     }
 
     public LiveData<String> getText() {

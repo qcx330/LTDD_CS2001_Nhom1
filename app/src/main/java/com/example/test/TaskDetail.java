@@ -169,7 +169,7 @@ public class TaskDetail extends AppCompatActivity {
                     date.setMinutes(time.getMinutes());
                     date.setSeconds(time.getSeconds());
                     mtask.setTime(date);
-                    }
+                }
                 else mtask.setTime(time);
                 Log.d("TEST", "value: "+mtask.getTask());
                 Log.d("TEST", "value: "+mtask.getTime());

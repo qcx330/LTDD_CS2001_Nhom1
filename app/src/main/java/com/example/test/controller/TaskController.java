@@ -144,4 +144,23 @@ public class TaskController {
                     }
                 });
     }
+    public void deleteTask(int id)
+    {
+        DatabaseReference taskRef = databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("task");
+        taskRef.orderByChild("id").equalTo(String.valueOf(id)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data: snapshot.getChildren()){
+                    Log.d("TEST-DELETE", "value:" + data.getRef().getKey());
+                    data.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("ERROR-DELETE", "loadPost:onCancelled", error.toException());
+            }
+        });
+    }
 }

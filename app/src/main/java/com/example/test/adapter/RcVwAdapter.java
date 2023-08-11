@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,6 +125,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                         });
             }
         });
+
     }
 
     @Override
@@ -135,6 +137,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     public static class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtActivity, txtTime;
         CheckBox chbxDone, chbxImp;
+        LinearLayout foreground;
 
         public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
@@ -148,6 +151,7 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
             chbxImp = itemView.findViewById(R.id.chbxImp);
             chbxDone = itemView.findViewById(R.id.chbxDone);
             txtTime = itemView.findViewById(R.id.txtRemindTime);
+            foreground = itemView.findViewById(R.id.layout_foreground);
 
             itemView.setOnClickListener(this);
         }
@@ -160,5 +164,11 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         public interface ItemClickListener {
             void onClick(View view, int position, boolean isLongClick);
         }
+
     }
+    public void removeItem(int id)
+    {
+        taskController.deleteTask(id);
+    }
+
 }
