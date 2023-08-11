@@ -38,7 +38,6 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private List<TaskModel> taskList;
     Context context;
-    TaskModel mtask = new TaskModel();
     TaskController taskController = new TaskController();
 
     public RcVwAdapter(Context context, List<TaskModel> taskList) {
@@ -64,18 +63,19 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.txtTime.setText(format.format(item.getTime()));
         holder.chbxDone.setChecked(toBoolean(item.getDone()));
         //Done
+        if(holder.chbxDone.isChecked())
+            holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         holder.chbxDone.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (holder.chbxDone.isChecked()) {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     item.setDone(1);
-                    taskController.EditTask(item.getId(), "done", item.getDone());
                 } else {
                     holder.txtActivity.setPaintFlags(holder.txtActivity.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     item.setDone(0);
-                    taskController.EditTask(item.getId(), "done", item.getDone());
                 }
+                taskController.EditTask(item.getId(), "done", item.getDone());
             }
         });
         //Important
@@ -83,13 +83,11 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
         holder.chbxImp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (holder.chbxImp.isChecked()) {
+                if (holder.chbxImp.isChecked())
                     item.setImpo(1);
-                    taskController.EditTask(item.getId(), "impo", item.getImpo());
-                } else {
+                else
                     item.setImpo(0);
-                    taskController.EditTask(item.getId(), "impo", item.getImpo());
-                }
+                taskController.EditTask(item.getId(), "impo", item.getImpo());
             }
         });
 
@@ -114,7 +112,6 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                                     intent.putExtra("impo", task.getImpo());
                                     intent.putExtra("done", task.getDone());
                                     intent.putExtra("time", task.getTime());
-
                                 }
                                 context.startActivity(intent);
                             }
@@ -125,7 +122,6 @@ public class RcVwAdapter extends RecyclerView.Adapter<RcVwAdapter.TaskViewHolder
                                 throw error.toException();
                             }
                         });
-
             }
         });
     }

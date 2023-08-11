@@ -53,15 +53,9 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Intent intent=new Intent(SignIn.this,MainActivity.class);
                             startActivity(intent);
                             finishAffinity();
-                        } else {
-                            // If sign in fails, display a message to the user.
-
-                            Toast.makeText(SignIn.this, "Authentication failed: "+strEmail+" "+strPass,
-                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -27,6 +27,7 @@ public class SignUp extends AppCompatActivity {
     TextInputEditText txtSUPass;
     TextInputEditText txtSUConfirmPass;
     Button btnSignUp;
+    Button btnSignIn;
 
 //    ProgressBar progressBar;
 
@@ -38,6 +39,7 @@ public class SignUp extends AppCompatActivity {
         txtSUPass = findViewById(R.id.txtSUPass);
         txtSUEmail = findViewById(R.id.txtSUEmail);
         txtSUConfirmPass = findViewById(R.id.txtSUConfirmPass);
+        btnSignIn = findViewById(R.id.btnSignIn);
 
         btnSignUp = findViewById(R.id.btnSignUp);
 
@@ -46,6 +48,15 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onClickSignUp();
+            }
+        });
+
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(SignUp.this,SignIn.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

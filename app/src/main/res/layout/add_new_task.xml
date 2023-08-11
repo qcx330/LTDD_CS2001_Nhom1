@@ -2,56 +2,79 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/dialog_bg"
-    android:paddingTop="40dp"
+    android:orientation="vertical"
     android:paddingLeft="10dp"
+    android:paddingTop="30dp"
     android:paddingRight="10dp"
     android:paddingBottom="20dp">
+
     <LinearLayout
-        android:layout_marginTop="20dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:weightSum="5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_circle_new_task"
+            android:gravity="center" />
+
         <EditText
             android:id="@+id/edtTask"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#8A2BE2"/>
-        <Button
-            android:id="@+id/btnSave"
-            android:drawableLeft="@drawable/ic_send"
-            android:layout_weight="1"
-            android:paddingLeft="30dp"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:backgroundTint="#8A2BE2"/>
-    </LinearLayout>
+            android:layout_weight="3"
+            android:background="@android:color/transparent"
+            android:hint="Add a Tast"
+            android:textColor="@color/white"
+            android:textColorHint="@color/ondark_03"
+            android:textSize="25sp" />
 
         <Button
-            android:layout_marginTop="20dp"
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="Done"
+            android:textColor="@color/ondark_03"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
             android:id="@+id/btnSetDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set date"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            android:textSize="20dp"
-            android:textColor="#8A2BE2"
-            android:background="@android:color/transparent"
-            ></Button>
+
+            android:background="@drawable/set_layout_new_task"
+            android:drawableLeft="@drawable/ic_update"
+            android:text="SET DATE"
+            android:textColor="@color/ondark_03"
+            android:textSize="20dp" />
+
         <Button
-            android:layout_marginTop="20dp"
             android:id="@+id/btnSetTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Set time"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
-            android:textSize="20dp"
-            android:textColor="#8A2BE2"
-            android:background="@android:color/transparent"
-            ></Button>
+            android:layout_marginTop="10dp"
+            android:background="@drawable/set_layout_new_task"
+            android:drawableLeft="@drawable/ic_time"
+            android:text="SET TIME"
+            android:textColor="@color/ondark_03"
+            android:textSize="20dp" />
+    </LinearLayout>
+
 </LinearLayout>

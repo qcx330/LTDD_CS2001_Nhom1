@@ -3,7 +3,10 @@ package com.example.test.ui.myday;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.test.adapter.RcVwAdapter;
 import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
@@ -14,13 +17,6 @@ import java.util.List;
 
 public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtGreat;
-
-    public MutableLiveData<List<TaskModel>> getTaskListLiveData() {
-        return taskListLiveData;
-    }
-
-    private MutableLiveData<List<TaskModel>> taskListLiveData;
-    private List<TaskModel> taskList = new ArrayList<>();
     TaskController taskController = new TaskController();
 
     public MutableLiveData<String> getTxtTime() {
@@ -29,23 +25,25 @@ public class MyDayViewModel extends ViewModel {
     private final MutableLiveData<String> txtTime;
 
     public MyDayViewModel() {
-
         txtGreat = new MutableLiveData<>();
         txtGreat.setValue("Good "+ getTime());
         txtTime = new MutableLiveData<>();
         txtTime.setValue(getDate());
-
-
-        taskListLiveData = new MutableLiveData<>();
-        taskListLiveData.setValue(getList());
     }
-    public List<TaskModel> getList(){
-        taskList = taskController.GetAllTask();
-        return taskList;
+
+    public void getList(List<TaskModel> lst, RcVwAdapter adapter, String nameFragment){
+        taskController.GetTask(lst, adapter, nameFragment);
     }
+
     public String getDate(){
         SimpleDateFormat simpleFormat = new SimpleDateFormat("MMMM dd, yyyy");
         return simpleFormat.format(new Date());
+    }
+
+    public void DeleteTask(List<TaskModel> taskModels, RcVwAdapter adapter, RecyclerView recyclerView){
+        ItemTouchHelper.SimpleCallback simpleCallback = taskController.ItemTouchHelperForDelete(taskModels, adapter);
+        if(simpleCallback != null)
+            taskController.DeleteTask(simpleCallback, recyclerView);
     }
 
     public String getTime(){

@@ -9,12 +9,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.test.adapter.RcVwAdapter;
 import com.example.test.databinding.FragmentPlannedBinding;
+import com.example.test.model.TaskModel;
+
+import java.util.List;
 
 public class PlannedFragment extends Fragment {
 
     private FragmentPlannedBinding binding;
+
+    RecyclerView recyclerView;
+    RcVwAdapter adapter;
+    List<TaskModel> list;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,6 +32,10 @@ public class PlannedFragment extends Fragment {
 
         binding = FragmentPlannedBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+
+
+
 
         final TextView textView = binding.txtPlanned;
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);

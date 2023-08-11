@@ -39,8 +39,6 @@
         app:counterMaxLength="40"
         app:counterOverflowTextColor="@color/white"
         app:counterTextColor="@color/white"
-        app:helperText="Required"
-        app:helperTextTextColor="@color/error_400"
         app:startIconDrawable="@drawable/baseline_person_24"
         app:startIconTint="@color/white">
 
@@ -49,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,8 +71,6 @@
         app:counterTextColor="@color/white"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
-        app:helperText="Required"
-        app:helperTextTextColor="@color/error_400"
         app:startIconDrawable="@drawable/baseline_key_24"
         app:startIconTint="@color/white">
 
@@ -84,7 +80,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:inputType="textPassword"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -109,8 +105,6 @@
         app:counterTextColor="@color/white"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
-        app:helperText="Required"
-        app:helperTextTextColor="@color/error_400"
         app:startIconDrawable="@drawable/baseline_key_24"
         app:startIconTint="@color/white">
 
@@ -121,7 +115,7 @@
             android:background="@android:color/transparent"
             android:textColor="@color/white"
             android:inputType="textPassword"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
@@ -138,6 +132,7 @@
             android:background="@android:color/transparent"
             android:text="Sign up"
             android:textSize="25sp"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <Button

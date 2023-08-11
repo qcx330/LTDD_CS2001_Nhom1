@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="32dp"
         android:hint="Email"
         android:textColorHint="@color/white"
@@ -31,7 +31,6 @@
         app:counterEnabled="true"
         app:counterTextColor="@color/white"
         app:counterMaxLength="40"
-        app:helperText="Required"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -39,12 +38,12 @@
         app:boxStrokeWidth="5dp"
         app:counterOverflowTextColor="@color/white"
         app:boxStrokeColor="@color/background_100"
-        app:helperTextTextColor="@color/error_400"
         android:textSize="30dp">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtSIUser"
-            android:textSize="20dp"
+            android:textSize="25sp"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_height="wrap_content"/>
@@ -65,9 +64,7 @@
         app:startIconTint="@color/white"
         app:endIconMode="password_toggle"
         app:endIconTint="@color/white"
-        app:helperText="Required"
         android:textColorHint="@color/white"
-        app:helperTextTextColor="@color/error_400"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -76,7 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtSIPass"
             android:layout_width="match_parent"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:textColor="@color/white"
             android:inputType="textPassword"
             android:textStyle="bold"
@@ -88,7 +85,7 @@
 
 
     <LinearLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -98,6 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign in"
+            android:textColor="@color/white"
             android:textSize="25sp"
             android:background="@android:color/transparent"
             android:layout_marginRight="5dp"
@@ -109,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Sign up"
+            android:textColor="@color/white"
             android:background="@android:color/transparent"
             android:textSize="25sp"
             android:textStyle="italic" />

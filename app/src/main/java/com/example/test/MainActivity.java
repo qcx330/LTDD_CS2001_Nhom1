@@ -12,6 +12,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -66,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.appBarMain.toolbar);
 
         dialog = new BottomSheetDialog(this);
-        createDialog();
+
 
         //Floating button
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.show();
+                createDialog();
             }
         });
 
@@ -83,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_myDay, R.id.nav_planned, R.id.nav_important,
-                R.id.nav_assigned, R.id.nav_tasks
+                R.id.nav_assigned, R.id.nav_tasks, R.id.nav_changePass,
+                R.id.nav_myProfile
         )
                 .setOpenableLayout(drawer)
                 .build();
@@ -105,9 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createDialog() {
         View view = getLayoutInflater().inflate(R.layout.add_new_task, null, false);
-
         dialog.setContentView(view);
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         btnSave = dialog.findViewById(R.id.btnSave);
         edtTask = dialog.findViewById(R.id.edtTask);
         btnSetDate = dialog.findViewById(R.id.btnSetDate);
@@ -162,6 +164,115 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        dialog.show();
+    }
+
+    private void createAppSetting() {
+        View view = getLayoutInflater().inflate(R.layout.app_new_setting, null, false);
+        dialog.setContentView(view);
+        LinearLayout appSettingSort = dialog.findViewById(R.id.appSettingSort);
+        LinearLayout appSettingChange = dialog.findViewById(R.id.appSettingChangeTheme);
+        Button btnDone = dialog.findViewById(R.id.btnDone);
+        appSettingSort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createSort();
+            }
+        });
+
+        appSettingChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createChangeTheme();
+            }
+        });
+        dialog.show();
+    }
+    private void createSort() {
+        View view = getLayoutInflater().inflate(R.layout.app_in_sort, null, false);
+        dialog.setContentView(view);
+        Button btnSortBackSetting = dialog.findViewById(R.id.btnSortBackSetting);
+        LinearLayout appSettingSort = dialog.findViewById(R.id.appSettingSort);
+        btnSortBackSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAppSetting();
+            }
+        });
+
+        dialog.show();
+    }
+    private void createChangeTheme() {
+        View view = getLayoutInflater().inflate(R.layout.app_in_changetheme, null, false);
+        dialog.setContentView(view);
+
+        Button btnChangeBackSetting = dialog.findViewById(R.id.btnChangeBackSetting);
+        Button btnChangeColor = dialog.findViewById(R.id.btnChangColor);
+        ImageButton imgBtnWhite = dialog.findViewById(R.id.imgBtnWhite);
+        ImageButton imgBtnRed = dialog.findViewById(R.id.imgBtnRed);
+        ImageButton imgBtnPurple = dialog.findViewById(R.id.imgBtnPurple);
+        ImageButton imgBtnBlue = dialog.findViewById(R.id.imgBtnBlue);
+        TextView txtGreat = findViewById(R.id.textGreat);
+        TextView txtTime = findViewById(R.id.txtTime);
+        TextView txtFinishMyday = findViewById(R.id.FinishMyDayTxt);
+
+        imgBtnWhite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnChangeColor.setTextColor(getColor(R.color.information));
+                txtGreat.setTextColor(getColor(R.color.information));
+                txtTime.setTextColor(getColor(R.color.information));
+                txtFinishMyday.setTextColor(getColor(R.color.information));
+                btnChangeColor.setBackgroundTintList(getColorStateList(R.color.white));
+            }
+        });
+        imgBtnRed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // màu chữ
+                btnChangeColor.setTextColor(getColor(R.color.white));
+                txtGreat.setTextColor(getColor(R.color.error_500));
+                txtTime.setTextColor(getColor(R.color.error_500));
+                txtFinishMyday.setTextColor(getColor(R.color.error_500));
+                // màu nền
+                btnChangeColor.setBackgroundTintList(getColorStateList(R.color.Red));
+            }
+        });
+
+        imgBtnPurple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnChangeColor.setTextColor(getColor(R.color.white));
+                txtGreat.setTextColor(getColor(R.color.DarkViolet));
+                txtTime.setTextColor(getColor(R.color.DarkViolet));
+                txtFinishMyday.setTextColor(getColor(R.color.DarkViolet));
+                // màu nền
+                btnChangeColor.setBackgroundTintList(getColorStateList(R.color.DarkViolet));
+            }
+        });
+        imgBtnBlue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnChangeColor.setTextColor(getColor(R.color.white));
+                txtGreat.setTextColor(getColor(R.color.Blue));
+                txtTime.setTextColor(getColor(R.color.Blue));
+                txtFinishMyday.setTextColor(getColor(R.color.Blue));
+                // màu nền
+                btnChangeColor.setBackgroundTintList(getColorStateList(R.color.Blue));
+            }
+        });
+        btnChangeBackSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createAppSetting();
+            }
+        });
+        btnChangeColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+        dialog.show();
     }
     public String getCurrentDate(){
 
@@ -178,6 +289,14 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            createAppSetting();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
