@@ -53,33 +53,7 @@
                 android:background="@drawable/set_design_button_circle"
                 android:backgroundTint="@color/Blue" />
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/set_design_button_circle"
-                android:backgroundTint="@color/secondary_300" />
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/set_design_button_circle"
-                android:backgroundTint="@color/error_300" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/set_design_button_circle"
-                android:backgroundTint="@color/primary_200" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/set_design_button_circle"
-                android:backgroundTint="@color/error_500" />
         </LinearLayout>
     </HorizontalScrollView>
 

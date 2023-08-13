@@ -13,14 +13,6 @@
             android:icon="@drawable/ic_star_fill"
             android:title="@string/menu_important" />
         <item
-            android:id="@+id/nav_planned"
-            android:icon="@drawable/ic_calendar"
-            android:title="@string/menu_planned" />
-        <item
-            android:id="@+id/nav_assigned"
-            android:icon="@drawable/ic_user"
-            android:title="@string/menu_assigned" />
-        <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_home"
             android:title="@string/menu_tasks" />

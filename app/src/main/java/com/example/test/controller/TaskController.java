@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class TaskController {
     }
 
     public ItemTouchHelper.SimpleCallback ItemTouchHelperForDelete(List<TaskModel> taskModels, RcVwAdapter adapter) {
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -72,13 +71,14 @@ public class TaskController {
                         databaseReference.child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .child("task")
                                 .child(String.valueOf(taskModels.get(postion).getId()))
-                                .setValue(null);
+                                .getRef().removeValue();
                         if (taskModels.size() == 0)
                             taskModels.clear();
-                        taskModels.remove(postion);
-                        adapter.notifyDataSetChanged();
+                        else
+                            taskModels.remove(postion);
+                        adapter.notifyItemRemoved(postion);
                         break;
-                    case ItemTouchHelper.RIGHT:
+                    default:
                         break;
                 }
             }
@@ -95,14 +95,19 @@ public class TaskController {
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         switch (nameFragment){
                             case "MyDay":
-                                lst.add(snapshot.getValue(TaskModel.class));
+                                if(snapshot.getValue(TaskModel.class).getDone() == 1)
+                                    lst.add(snapshot.getValue(TaskModel.class));
                                 adapter.notifyDataSetChanged();
                                 break;
                             case "Important":
-                                if (snapshot.getValue(TaskModel.class).getDone() == 1) {
+                                if (snapshot.getValue(TaskModel.class).getImpo() == 1) {
                                     lst.add(snapshot.getValue(TaskModel.class));
                                     adapter.notifyDataSetChanged();
                                 }
+                                break;
+                            case "Task":
+                                lst.add(snapshot.getValue(TaskModel.class));
+                                adapter.notifyDataSetChanged();
                                 break;
                             default:
                                 break;
@@ -112,16 +117,30 @@ public class TaskController {
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         switch (nameFragment){
-                            case "MyDay":
-                                break;
                             case "Important":
-                                if(snapshot.getValue(TaskModel.class).getDone() == 0)
-                                    for (TaskModel taskModel : lst)
-                                        if (taskModel.getTask().equals(snapshot.getValue(TaskModel.class).getTask())) {
+                                int i = 0;
+                                if(snapshot.getValue(TaskModel.class).getImpo() == 0)
+                                    for (TaskModel taskModel : lst) {
+                                        if (taskModel.getId() == snapshot.getValue(TaskModel.class).getId()) {
                                             lst.remove(taskModel);
+                                            adapter.notifyItemRemoved(i);
                                             break;
                                         }
-                                adapter.notifyDataSetChanged();
+                                        i++;
+                                    }
+                                break;
+                            case "MyDay":
+                                int j = 0;
+                                if(snapshot.getValue(TaskModel.class).getDone() == 0)
+                                    for (TaskModel taskModel : lst) {
+                                        if (snapshot.getValue(TaskModel.class).getId() == taskModel.getId()) {
+                                            Log.d("test", String.valueOf(taskModel.getId()));
+                                            lst.remove(taskModel);
+                                            adapter.notifyItemRemoved(j);
+                                            break;
+                                        }
+                                        j++;
+                                    }
                                 break;
                             default:
                                 break;
@@ -130,7 +149,6 @@ public class TaskController {
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
                     }
 
                     @Override

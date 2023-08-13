@@ -13,7 +13,7 @@
             android:layout_height="150dp"
             android:src="@drawable/ic_avata"
             android:layout_marginBottom="90dp"
-            android:id="@+id/img_avatar" />
+            android:id="@+id/imgAvatar" />
 
         <EditText
             android:id="@+id/edt_full_name"

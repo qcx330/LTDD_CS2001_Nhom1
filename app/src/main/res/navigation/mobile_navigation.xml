@@ -23,16 +23,6 @@
         android:label="@string/menu_important"
         tools:layout="@layout/fragment_important" />
     <fragment
-        android:id="@+id/nav_planned"
-        android:name="com.example.test.ui.planned.PlannedFragment"
-        android:label="@string/menu_planned"
-        tools:layout="@layout/fragment_planned" />
-    <fragment
-        android:id="@+id/nav_assigned"
-        android:name="com.example.test.ui.assigned.AssignedFragment"
-        android:label="@string/menu_assigned"
-        tools:layout="@layout/fragment_assigned" />
-    <fragment
         android:id="@+id/nav_tasks"
         android:name="com.example.test.ui.tasks.TasksFragment"
         android:label="@string/menu_tasks"

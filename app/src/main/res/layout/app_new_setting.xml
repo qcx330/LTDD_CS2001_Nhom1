@@ -68,12 +68,7 @@
             android:textColor="@color/white"
             android:textSize="25dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:drawableRight="@drawable/ic_bow_right"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +82,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:drawableLeft="@drawable/ic_paint" />
 
         <TextView
@@ -97,62 +92,6 @@
             android:text="Change theme"
             android:textColor="@color/white"
             android:textSize="25dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@android:color/transparent"
-            android:drawableRight="@drawable/ic_bow_right"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        android:gravity="center|left"
-        android:id="@+id/appPrintList"
-        android:weightSum="5">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            android:drawableLeft="@drawable/ic_print" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="Print list"
-            android:textColor="@color/white"
-            android:textAllCaps="false"
-            android:textSize="25dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center|left"
-        android:id="@+id/appSend"
-        android:weightSum="5">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:drawableLeft="@drawable/ic_save" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="Send a Copy"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="25dp"/>
-
     </LinearLayout>
 
 

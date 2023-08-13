@@ -49,8 +49,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-129" />
-                            <option name="y" value="-113" />
+                            <option name="x" value="-412" />
+                            <option name="y" value="-167" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="nav_myProfile">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-172" />
+                            <option name="y" value="-307" />
                           </Point>
                         </option>
                       </LayoutPositions>

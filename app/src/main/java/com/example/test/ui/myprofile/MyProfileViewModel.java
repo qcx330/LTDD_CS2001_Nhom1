@@ -1,16 +1,12 @@
 package com.example.test.ui.myprofile;
 
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.activity.result.ActivityResultLauncher;
 
 import androidx.lifecycle.ViewModel;
 

@@ -3,7 +3,11 @@ package com.example.test;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,11 +17,16 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,16 +34,22 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 import com.example.test.databinding.ActivityMainBinding;
 import com.example.test.model.TaskModel;
+import com.example.test.ui.myprofile.MyProfileViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationView;
 
 import com.example.test.controller.TaskController;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +57,12 @@ import java.util.TimeZone;
 
 public class MainActivity extends AppCompatActivity {
     EditText edtTask;
-    Button btnSave,btnSetDate, btnSetTime;
+    Button btnSave, btnSetDate, btnSetTime;
+
+    TextView txtUserName;
+    TextView txtEmail;
+    ImageView headerImage;
+
     BottomSheetDialog dialog;
     Calendar calendar = Calendar.getInstance();
     Calendar selected = Calendar.getInstance();
@@ -56,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     SimpleDateFormat format = new SimpleDateFormat("h:mm aa");
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    TaskController taskController = new TaskController();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +98,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_myDay, R.id.nav_planned, R.id.nav_important,
-                R.id.nav_assigned, R.id.nav_tasks, R.id.nav_changePass,
+                R.id.nav_myDay, R.id.nav_important,
+                R.id.nav_tasks, R.id.nav_changePass,
                 R.id.nav_myProfile
         )
                 .setOpenableLayout(drawer)
@@ -95,6 +114,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         MenuItem item = navigationView.getMenu().findItem(R.id.nav_signOut);
+
+        txtUserName = navigationView.getHeaderView(0).findViewById(R.id.headerUserName);
+        txtEmail = navigationView.getHeaderView(0).findViewById(R.id.headerEmail);
+        headerImage = navigationView.getHeaderView(0).findViewById(R.id.headerImage);
+        showInformation();
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
@@ -124,9 +148,10 @@ public class MainActivity extends AppCompatActivity {
                 if (edtTask.getText().toString().equals(""))
                     Toast.makeText(MainActivity.this, "Vui lòng nhập task", Toast.LENGTH_SHORT).show();
                 else {
+                    TaskController taskController = new TaskController();
                     taskController.CreateTask(edtTask.getText().toString(), selected.getTime());
                     Toast.makeText(MainActivity.this, edtTask.getText().toString(), Toast.LENGTH_SHORT).show();
-                    edtTask.setText("");
+                    edtTask.setText(null);
                 }
             }
         });
@@ -188,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
     private void createSort() {
         View view = getLayoutInflater().inflate(R.layout.app_in_sort, null, false);
         dialog.setContentView(view);
@@ -202,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
     private void createChangeTheme() {
         View view = getLayoutInflater().inflate(R.layout.app_in_changetheme, null, false);
         dialog.setContentView(view);
@@ -214,7 +241,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton imgBtnBlue = dialog.findViewById(R.id.imgBtnBlue);
         TextView txtGreat = findViewById(R.id.textGreat);
         TextView txtTime = findViewById(R.id.txtTime);
-        TextView txtFinishMyday = findViewById(R.id.FinishMyDayTxt);
+        TextView txtListTaskMyDay = findViewById(R.id.ListMyDayTxt);
+        TextView txtListTak = findViewById(R.id.ListTaskTxt);
 
         imgBtnWhite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +250,8 @@ public class MainActivity extends AppCompatActivity {
                 btnChangeColor.setTextColor(getColor(R.color.information));
                 txtGreat.setTextColor(getColor(R.color.information));
                 txtTime.setTextColor(getColor(R.color.information));
-                txtFinishMyday.setTextColor(getColor(R.color.information));
+                txtListTaskMyDay.setTextColor(getColor(R.color.information));
+                txtListTak.setTextColor(getColor(R.color.information));
                 btnChangeColor.setBackgroundTintList(getColorStateList(R.color.white));
             }
         });
@@ -233,7 +262,8 @@ public class MainActivity extends AppCompatActivity {
                 btnChangeColor.setTextColor(getColor(R.color.white));
                 txtGreat.setTextColor(getColor(R.color.error_500));
                 txtTime.setTextColor(getColor(R.color.error_500));
-                txtFinishMyday.setTextColor(getColor(R.color.error_500));
+                txtListTaskMyDay.setTextColor(getColor(R.color.error_500));
+                txtListTak.setTextColor(getColor(R.color.error_500));
                 // màu nền
                 btnChangeColor.setBackgroundTintList(getColorStateList(R.color.Red));
             }
@@ -245,7 +275,8 @@ public class MainActivity extends AppCompatActivity {
                 btnChangeColor.setTextColor(getColor(R.color.white));
                 txtGreat.setTextColor(getColor(R.color.DarkViolet));
                 txtTime.setTextColor(getColor(R.color.DarkViolet));
-                txtFinishMyday.setTextColor(getColor(R.color.DarkViolet));
+                txtListTaskMyDay.setTextColor(getColor(R.color.DarkViolet));
+                txtListTak.setTextColor(getColor(R.color.DarkViolet));
                 // màu nền
                 btnChangeColor.setBackgroundTintList(getColorStateList(R.color.DarkViolet));
             }
@@ -256,7 +287,8 @@ public class MainActivity extends AppCompatActivity {
                 btnChangeColor.setTextColor(getColor(R.color.white));
                 txtGreat.setTextColor(getColor(R.color.Blue));
                 txtTime.setTextColor(getColor(R.color.Blue));
-                txtFinishMyday.setTextColor(getColor(R.color.Blue));
+                txtListTaskMyDay.setTextColor(getColor(R.color.Blue));
+                txtListTak.setTextColor(getColor(R.color.Blue));
                 // màu nền
                 btnChangeColor.setBackgroundTintList(getColorStateList(R.color.Blue));
             }
@@ -274,12 +306,13 @@ public class MainActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-    public String getCurrentDate(){
+
+    public String getCurrentDate() {
 
         return simpleformat.format(new Date());
     }
 
-    public String getCurrentTime(){
+    public String getCurrentTime() {
         return format.format(calendar.getTime());
     }
 
@@ -290,6 +323,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -306,4 +340,53 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    final MyProfileViewModel myProfile = new MyProfileViewModel();
+
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent intent = result.getData();
+                if (intent == null)
+                    return;
+                Uri uri = intent.getData();
+                myProfile.setUri(uri);
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    myProfile.getImageAvatar().setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    });
+
+    public static final int MY_REQUEST_CODE = 10;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_REQUEST_CODE)
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                openGallery();
+    }
+
+    public void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        mActivityResultLauncher.launch(Intent.createChooser(intent, "Select Picture"));
+    }
+
+    public void showInformation() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null)
+            return;
+        Uri photoUrl = user.getPhotoUrl();
+        if (user.getDisplayName() != null)
+            txtUserName.setText(user.getDisplayName());
+        txtEmail.setText(user.getEmail());
+        if(photoUrl != null)
+            Glide.with(txtEmail).load(photoUrl).error(R.drawable.ic_avata).into(headerImage);
+    }
 }

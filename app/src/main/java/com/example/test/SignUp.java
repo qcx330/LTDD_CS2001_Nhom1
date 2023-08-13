@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
@@ -25,6 +27,8 @@ public class SignUp extends AppCompatActivity {
 
     TextInputEditText txtSUEmail;
     TextInputEditText txtSUPass;
+
+    TextInputEditText txtSUUserName;
     TextInputEditText txtSUConfirmPass;
     Button btnSignUp;
     Button btnSignIn;
@@ -36,6 +40,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        txtSUUserName = findViewById(R.id.txtSUUserName);
         txtSUPass = findViewById(R.id.txtSUPass);
         txtSUEmail = findViewById(R.id.txtSUEmail);
         txtSUConfirmPass = findViewById(R.id.txtSUConfirmPass);
@@ -72,8 +77,9 @@ public class SignUp extends AppCompatActivity {
         String strEmail = txtSUEmail.getText().toString().trim();
         String strPass = txtSUPass.getText().toString().trim();
         String strConFirm = txtSUConfirmPass.getText().toString().trim();
+        String strUserName = txtSUUserName.getText().toString().trim();
 
-        if(!KiemTra(strEmail) && !KiemTra(strPass) && !KiemTra(strConFirm)){
+        if(!KiemTra(strEmail) && !KiemTra(strPass) && !KiemTra(strConFirm) && !KiemTra(strUserName)){
             Toast.makeText(getApplicationContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_LONG).show();
             return;
         }
@@ -89,17 +95,22 @@ public class SignUp extends AppCompatActivity {
             txtSUEmail.requestFocus();
             txtSUPass.requestFocus();
             txtSUConfirmPass.requestFocus();
+            txtSUUserName.requestFocus();
         }
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
-//        progressBar.setVisibility(View.VISIBLE);
-
         auth.createUserWithEmailAndPassword(strEmail, strPass)
                 .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            UserModel user = new UserModel(strEmail);
+                            UserModel user = new UserModel(strEmail, strUserName);
+
+                            UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(strUserName)
+                                            .build();
+                            FirebaseUser firebaseUser = task.getResult().getUser();
+                            firebaseUser.updateProfile(userProfileChangeRequest);
+
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {

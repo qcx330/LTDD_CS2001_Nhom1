@@ -1,5 +1,7 @@
 package com.example.test.ui.myday;
 
+import android.annotation.SuppressLint;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -11,7 +13,6 @@ import com.example.test.controller.TaskController;
 import com.example.test.model.TaskModel;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,14 +37,8 @@ public class MyDayViewModel extends ViewModel {
     }
 
     public String getDate(){
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("MMMM dd, yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleFormat = new SimpleDateFormat("MMMM dd, yyyy");
         return simpleFormat.format(new Date());
-    }
-
-    public void DeleteTask(List<TaskModel> taskModels, RcVwAdapter adapter, RecyclerView recyclerView){
-        ItemTouchHelper.SimpleCallback simpleCallback = taskController.ItemTouchHelperForDelete(taskModels, adapter);
-        if(simpleCallback != null)
-            taskController.DeleteTask(simpleCallback, recyclerView);
     }
 
     public String getTime(){
